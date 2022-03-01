@@ -1,0 +1,142 @@
+.bg1{
+    background-image: url("../images/autobus.jpg ");
+    background-size: cover;
+background-position: 50% 50%;
+background-repeat: no-repeat;
+width: 100%;
+height: 191px;
+
+}
+.bg-shadow{
+    position: relative;
+}
+.bg-shadow::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .15);
+    content: '';
+}
+.cell-view{
+    display: table-cell;
+    vertical-align: middle;
+    width: 10000px;
+    padding: 30px 0;
+      padding-top: 30px;
+      padding-left: 0px;
+    height: 190px;
+    position: relative;
+    
+}
+.cell-view h1{
+    color: white;
+    font-size: 35px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 54px !important;
+    margin-bottom: 1rem;
+    list-style: none;
+  }
+  .breadcrumb-item + .breadcrumb-item {
+    padding-left: 0rem !important;
+  }
+  .main-container{
+      padding-top: 100px;
+      max-width: 1170px !important;
+  }
+  .as{
+    margin-bottom: 30px !important;
+    margin-top: 0;
+    color: #8e8d8d;
+    text-transform: uppercase;
+    font-size: 18px !important;
+  }
+  .article{
+    color: #8e8d8d;
+    font-size: 14px;
+    line-height: 26px;
+  }
+  .article p{
+    margin-bottom: 10px;
+    line-height: 26px;
+  }
+  .img-wrapper img{
+    width: 100%;
+    height: 277px;
+
+  }
+  .img-wrapper2 img{
+    width: 100%;
+  }
+  .text2 h5{
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+margin-top: 30px;
+font-size: 14px;
+font-family: inherit;
+font-weight: 500;
+line-height: 1.1;
+color: #8e8d8d;
+text-transform: uppercase;
+  }
+  .text2 p{
+    line-height: 26px;
+    color: #8e8d8d;
+  }
+  .mid-part{
+    position: relative;
+    box-sizing: border-box;
+    background-image: url(https://giuntabus.com/wp-content/uploads/2017/03/overlay-bg.png?id=103) !important;
+    background-position: 50% 50%;
+    padding: 100px 0;
+    width: 1011px;
+    right: 1rem;
+  }
+  .vc-inner{
+    box-sizing: border-box;
+padding-left: 15px;
+padding-right: 15px;
+width: 100%;
+  }
+  .vc-inner h4{
+    color: #3c3c3c;
+    margin-bottom: 35px;
+    margin-top: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+
+  }
+  .s-img{
+    text-align: center;
+  }
+  .bread-c{
+    background: #fafafa;
+    padding: 2px 0;
+    box-shadow: 0px 0px 5px rgb(0 0 0 / 20%);
+
+}
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 12px 0px !important;
+  margin-bottom: 0rem !important;
+  list-style: none;
+  margin-left: 10rem;
+}
+.breadcrumb-item a{
+  color: #a2a1a1;
+  font-size: 14px;
+}
+.breadcrumb-item{
+   margin: 0 2px !important;
+}
+.border-r{
+  border-right: 1px solid #ddd;
+}

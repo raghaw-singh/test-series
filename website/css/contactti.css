@@ -1,0 +1,28 @@
+.content-area h2{
+    font-size: 20px;
+color: #4d4d4d;
+text-transform: uppercase;
+margin-bottom: 30px;
+}
+.map-icon{
+    border: 1px solid #c3bcc4;
+    width: 56px;
+    text-align: center;
+    border-radius: 100%;
+    height: 55px;
+    padding: 11px;
+    margin-left: 3rem;
+margin-top: 1rem;
+}
+.map{
+    border: 1px solid #e5e5e5;
+    height: 90px;
+margin-bottom: 23px;
+}
+.address{
+    margin-top: 1rem;
+    margin-left: 15px;
+}
+.address p{
+    margin-bottom: 0px;
+}
