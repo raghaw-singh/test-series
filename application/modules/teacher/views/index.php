@@ -9,9 +9,11 @@
                 <li class="active">
                     <a href="#tab_teacher_list" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-list-ol"></i> Teachers List</a>
                 </li>
+                <?php if(has_permission(VIEW, 'hrm','users')){?>
                 <li class="">
                     <a href="#tab_add_teacher" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-plus-square-o"></i> Add Teacher</a>
                 </li>
+                <?php } ?>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab_teacher_list">
@@ -22,7 +24,9 @@
                                     <th>Sr No</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <?php if(has_permission(VIEW,'hrm','users')){?>
                                     <th>Status</th>
+                                    <?php } ?>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -32,17 +36,20 @@
                                     <td><?= $count ;?></td>
                                     <td><?= $teacher_info->name; ?></td>
                                     <td><?= $teacher_info->email; ?></td>
+                                    <?php if(has_permission(VIEW,'hrm','users')){?>
                                     <td><select onchange="changeStatus(this.value,'<?= $teacher_info->id;?>')" name="status">
                                             <option value="1" <?php if( $teacher_info->status=='1') echo 'selected';?>>Active</option>
                                             <option value="0" <?php if( $teacher_info->status=='0') echo 'selected';?>>Inactive</option>
                                         </select>
                                     </td>
+                                    <?php } ?>
                                     <td>
                                         <a href="<?= base_url('teacher/view/'.$teacher_info->user_id) ;?>" class="btn btn-success btn-xs"><i class="fa fa-folder-open-o"></i> View</a>
-
+                                        <?php if(has_permission(VIEW,'hrm','users')){?>
                                         <a href="<?= base_url('teacher/edit/'.$teacher_info->user_id) ;?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
 
                                         <a onclick="ajaxModalSM('<?= base_url('teacher/deleteModal/'.$teacher_info->user_id);?>','<?= get_phrase('delete_confirmation');?>','teacher_delete_modal')" href="javascript:;" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                             </tbody><?php $count ++ ;  }   ?>

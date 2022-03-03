@@ -19,8 +19,9 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="question_group" class="form-control select2">
                                 <option value="">Select</option>
-                                <option value="1">math</option>
-                                <option value="2">computer</option>
+                                <?php foreach($questionGroup as $group) { ?>
+                                <option value="<?= $group->title ;?>"><?= $group->title ;?></option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>

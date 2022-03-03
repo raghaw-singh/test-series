@@ -50,7 +50,8 @@ class Student extends MY_Controller {
     		$save['email']           =    $this->input->post('email');
     		$save['phone']           =    $this->input->post('phone');
     		$save['created_at']      =    date('Y-m-d H:i:s');
-    		$save['password']        =   password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+            $save['role_id']         =  '3';
+    		$save['password']        =   password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     		$save['temp_password']   =   base64_encode($this->input->post('password'));
 
     		if(!empty($_FILES['image']['name'])){

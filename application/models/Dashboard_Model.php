@@ -53,4 +53,7 @@ class Dashboard_Model extends MY_Model {
         $this->db->where('OD.payment_status','succeeded');
         return $this->db->get()->row()->payable_amount;       
     }
+    function getUser(){
+        $this->db->get('users')->row();
+    }
 }

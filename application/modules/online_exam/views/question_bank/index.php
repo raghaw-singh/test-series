@@ -12,26 +12,37 @@
                     <thead>
                         <tr>
                             <th><?= get_phrase('sr_no') ?></th>
-                            <th><?= get_phrase('exam_title') ?></th>
-                            <th><?= get_phrase('published') ?></th>
+                            <th><?= get_phrase('question_group') ?></th>
+                            <th><?= get_phrase('question') ?></th>
+                            <th><?= get_phrase('question_type') ?></th>
                             <th><?= get_phrase('action') ?></th>
                         </tr>
                     </thead>
-                    <!-- <?php $count=1; foreach ($exam_details as  $obj) {  ?>
+                    <?php $count=1; foreach ($questionData as  $obj) {  ?>
                     <tbody>
                         <tr>
                             <td><?= $count ;?></td>
-                            <td><?= $obj->exam_title; ?></td>
-                            <td><?= $obj->published; ?></td>
+                            <td><?= $obj->question_group; ?></td>
+                            <td><?= $obj->question; ?></td>
                             <td>
-                                <a href="<?= base_url('online_exam/addQuestion/'.$obj->id) ;?>" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> <?= get_phrase('add_question') ?></a>
+                                <?php 
+                                if($obj->question_type==1){
+                                    echo get_phrase('single_choice');
+                                }else if($obj->question_type==2){
+                                    echo get_phrase('multiple_choice');
+                                }else{
+                                    echo get_phrase('fill_in_the_blank');
+                                }
+                                ?>
+                                    
+                            </td>
+                            <td>
+                                <a href="<?= base_url('online_exam/question_bank/edit/'.$obj->id) ;?>" data-toggle="tooltip" title="<?= get_phrase('edit');?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
 
-                                <a href="<?= base_url('online_exam/online_exam/edit_online_exam/'.$obj->id) ;?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
-
-                                <a href="<?= base_url('online_exam/online_exam/delete/'.$obj->id) ;?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> delete</a>
+                                <a href="<?= base_url('online_exam/question_bank/delete/'.$obj->id) ;?>" data-toggle="tooltip" title="<?= get_phrase('delete');?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
-                    </tbody><?php $count ++ ;  }   ?> -->
+                    </tbody> <?php $count ++ ;  }   ?>
                 </table>
             </div>
         </div>

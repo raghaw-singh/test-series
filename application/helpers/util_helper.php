@@ -14,7 +14,30 @@ if (!function_exists('_d')) {
     }
 
 }
-
+ if ( !function_exists('inicompute') ) {
+    function inicompute( $array )
+    {
+        if ( is_object($array) ) {
+            if ( count(get_object_vars($array)) ) {
+                return count(get_object_vars($array));
+            }
+            return 0;
+        } elseif ( is_array($array) ) {
+            if ( count($array) ) {
+                return count($array);
+            }
+            return 0;
+        } elseif ( is_string($array) ) {
+            return 1;
+        } elseif ( is_null($array) ) {
+            return 0;
+        } elseif ( is_int($array) ) {
+            return (int) $array;
+        } else {
+            return count($array);
+        }
+    }
+}
 if (!function_exists('get_settings')) {
     function get_settings($key = '')
     {

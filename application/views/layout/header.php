@@ -34,7 +34,8 @@
                             $photo = $this->session->userdata('photo');
                             $role_id = $this->session->userdata('role_id');
                             $path = '';
-                            if($role_id == CUSTOMER){ $path = 'customer'; }
+                            if($role_id == TEACHER){ $path = 'teacher'; }
+                            if($role_id == STUDENT){ $path = 'student'; }
                             else{ $path = 'employee'; }
                         ?>      
                         <li class="dropdown user-menu">

@@ -14,7 +14,9 @@
                             <th><?= get_phrase('sr_no') ?></th>
                             <th><?= get_phrase('exam_title') ?></th>
                             <th><?= get_phrase('published') ?></th>
+                            <?php if(has_permission(VIEW,'hrm','users')){?>
                             <th><?= get_phrase('action') ?></th>
+                            <?php }?>
                         </tr>
                     </thead>
                     <?php $count=1; foreach ($exam_details as  $obj) {  ?>
@@ -23,6 +25,7 @@
                             <td><?= $count ;?></td>
                             <td><?= $obj->exam_title; ?></td>
                             <td><?= $obj->published; ?></td>
+                            <?php if(has_permission(VIEW,'hrm','users')){?>
                             <td>
                                 <a href="<?= base_url('online_exam/addQuestion/'.$obj->id) ;?>" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> <?= get_phrase('add_question') ?></a>
 
@@ -30,6 +33,7 @@
 
                                 <a href="<?= base_url('online_exam/online_exam/delete/'.$obj->id) ;?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> delete</a>
                             </td>
+                            <?php } ?>
                         </tr>
                     </tbody><?php $count ++ ;  }   ?>
                 </table>

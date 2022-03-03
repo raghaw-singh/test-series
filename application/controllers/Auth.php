@@ -118,9 +118,7 @@ class Auth extends CI_Controller {
      * ********************************************************** */
 
     public function logout($key = null) {
-        
-        create_log('Has been logged out');
-        
+                
         $this->session->unset_userdata($key);
         $this->session->unset_userdata('id');
         $this->session->unset_userdata('role_id');

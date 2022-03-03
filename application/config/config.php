@@ -533,10 +533,11 @@ define('UPLOAD_PATH', $config['base_url'] . '/uploads/');
 /* role static id*/
 define('SUPER_ADMIN', '1');
 define('ADMIN', '2');
-define('BUS_DRIVER', '3');
-define('BUS_CONDUCTOR', '4');
-define('AGENT','5');
-define('CUSTOMER','6');
+define('STUDENT', '3');
+define('TEACHER', '4');
+
+
+
 /* Permission */
 define('ADD', '0');
 define('EDIT', '1');

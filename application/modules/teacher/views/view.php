@@ -27,7 +27,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Phone</strong></td>
-                                <td class="mailbox-name"><?= $teacher_data->phone ; ?></td>
+                                <td class="mailbox-name"><?= $teacher_info->phone ; ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Email</strong></td>

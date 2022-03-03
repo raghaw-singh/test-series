@@ -12,12 +12,14 @@ class Question_Bank extends MY_Controller
         $this->load->model("Question_Bank_Model", "question_bank_model", true);
     }
     function index()
-    {
+    {   
+        $this->data['questionData']    =     $this->question_bank_model->questionBank();
         $this->layout->title("question_bank");
         $this->layout->view("online_exam/question_bank/index", $this->data);
     }
     function add()
-    {
+    {   
+        $this->data['questionGroup']    =    $this->question_bank_model->getGroup();
         $this->layout->title("add_question_bank");
         $this->layout->view("online_exam/question_bank/add", $this->data);
     }
@@ -26,7 +28,7 @@ class Question_Bank extends MY_Controller
         //print_r($this->input->post('opt_answer'));die;
         if(isset($_POST['submit'])){
             $this->form_validation->set_rules("type",get_phrase("question_type"), "trim|required");
-            $this->form_validation->set_rules('question_group',get_phrase('question_group'),'trim|required|numeric');
+            $this->form_validation->set_rules('question_group',get_phrase('question_group'),'trim|required');
             $this->form_validation->set_rules("totalOption", get_phrase("total_option"),"trim|required");
             $this->form_validation->set_rules('main_question',get_phrase('main_question'),'trim|required');
             $this->form_validation->set_rules('mark',get_phrase('mark'),'trim|required|numeric');
@@ -69,14 +71,12 @@ class Question_Bank extends MY_Controller
                 $type                               =   $this->input->post('type');
                 if ($insert) {
                     echo json_encode(array('status'=>'true','message'=>get_phrase('question_created_successfully')));
-                    
-
                     if($type ==3){
                         $optionArray                =   array();
                         $answers                    =   $this->input->post('opt_answer');
-                        $total_option               =   $this->input->post('total_option');
+                        $total_option               =   $this->input->post('totalOption');
                         for($i=0; $i<$total_option;$i++){
-                            if(!empty($options[$i])){
+                            if(!empty($answers[$i])){
                                 $new_row            =   array(
                                     'answers'=>$answers[$i],
                                     'question_id'=>$last_id
@@ -100,9 +100,6 @@ class Question_Bank extends MY_Controller
                             );
                             array_push($optionArray,$new_row);
                         }
-
-
-
                         $this->db->insert_batch('answers',$optionArray);
                     }
                 }else{
@@ -111,7 +108,6 @@ class Question_Bank extends MY_Controller
             }
         }
     }
-
     function uploadOptionImage()
     {
         $file = $_FILES["photo-file"];
@@ -227,4 +223,100 @@ class Question_Bank extends MY_Controller
             }
         }
     }
+    function edit($id=''){
+        $this->data['question_bank_info']    =    $this->question_bank_model->questionBankById($id);
+        $this->data['answers_info']          =    $this->question_bank_model->getAnswerById($id);
+        $this->data['questionGroup']         =    $this->question_bank_model->getGroup();
+        $this->layout->title("edit_question_bank");
+        $this->layout->view("online_exam/question_bank/edit", $this->data);
+    }
+    function update_question_bank()
+    {
+        //print_r($this->input->post('opt_answer'));die;
+        if(isset($_POST['submit'])){
+            $this->form_validation->set_rules("type",get_phrase("question_type"), "trim|required");
+            $this->form_validation->set_rules('question_group',get_phrase('question_group'),'trim|required');
+            $this->form_validation->set_rules("totalOption", get_phrase("total_option"),"trim|required");
+            $this->form_validation->set_rules('main_question',get_phrase('main_question'),'trim|required');
+            $this->form_validation->set_rules('mark',get_phrase('mark'),'trim|required|numeric');
+            $this->form_validation->set_rules('difficult_level',get_phrase('difficult_level'),'trim|required');
+            $type                                   =   $this->input->post('type');
+            if($type==3){
+                $this->form_validation->set_rules('opt_answer[]',get_phrase('answer'),'trim|required');
+            }else{
+                $this->form_validation->set_rules('opt_answer[]',get_phrase('answer'),'trim|required');
+                $this->form_validation->set_rules('option[]',get_phrase('option'),'trim|required');
+                $this->form_validation->set_rules('image_ajax[]',get_phrase('image_ajax'),'trim');
+            }
+            if ($this->form_validation->run() == false) {
+                $error['question_group']            =   form_error('question_group');
+                $error['mark']                      =   form_error('mark');
+                $error['question_type']             =   form_error('question_type');
+                $error['main_question']             =   form_error('main_question');
+                $error['totalOption']               =   form_error('totalOption');
+                $error['difficult_level']           =   form_error('difficult_level');
+                if($type==3){
+                    $error['opt_answer']            =   form_error('opt_answer[]');
+                }else{
+                    $error['opt_answer']            =   form_error('opt_answer[]');
+                    $error['option']                =   form_error('option[]');
+                    $error['image_ajax']            =   form_error('image_ajax[]');
+                }
+                $arr = array("status" => "error", "message" => $error);
+                echo json_encode($arr);
+            } else {
+                $id                                 =   $this->input->post('id');
+                $save["question_group"]             =   $this->input->post("question_group");
+                $save["mark"]                       =   $this->input->post("mark");
+                $save["question_type"]              =   $this->input->post("type");
+                $save["question"]                   =   $this->input->post("main_question");
+                $save["total_option"]               =   $this->input->post("totalOption");
+                $save["difficult_level"]            =   $this->input->post("difficult_level");
+                $save["upload"]                     =   $this->input->post('imagename');
+
+                $this->db->where('id',$id);
+                $update = $this->db->update("question_bank", $save);
+                // $last_id = $this->db->insert_id();
+                $type                               =   $this->input->post('type');
+                if ($update) {
+                    echo json_encode(array('status'=>'true','message'=>get_phrase('question_updated_successfully')));
+                    if($type ==3){
+                        $optionArray                =   array();
+                        $answers                    =   $this->input->post('opt_answer');
+                        $total_option               =   $this->input->post('totalOption');
+                        for($i=0; $i<$total_option;$i++){
+                            if(!empty($answers[$i])){
+                                $new_row            =   array(
+                                    'answers'=>$answers[$i],
+                                );
+                            }
+                            array_push($optionArray,$new_row);
+                        }
+                        $this->db->where('question_id',$id);
+                        $this->db->update('answers',$optionArray);
+                    }  else{
+                        $optionArray                =   array();
+                        $options                    =   $this->input->post('option');
+                        $opt_answer                 =   $this->input->post('opt_answer');
+                        $image_ajaxs                =   $this->input->post('image_ajax');
+                        $total_option               =   $this->input->post('totalOption');
+                        for($i=0; $i<$total_option;$i++){
+                            $new_row                =   array(
+                                'answers'=>$opt_answer[$i],
+                                'options'=>$options[$i],
+                                'images'=>$image_ajaxs[$i],
+                            );
+                            array_push($optionArray,$new_row);
+                        }
+                        $this->db->where('question_id',$id);
+                        $this->db->update('answers',$optionArray);
+                    }
+                }else{
+                    echo json_encode(array('status'=>'false','message'=>get_phrase('something_went_wrong')));
+                }
+            }
+        }
+    }
+
+
 }
