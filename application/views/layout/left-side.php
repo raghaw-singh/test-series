@@ -77,7 +77,35 @@ $segment_2 =    $this->uri->segment(2);
                 </ul>
             </li>
             <?php } ?>
-            <?php if(has_permission(VIEW,'hrm','student')||has_permission(VIEW,'hrm','admin')||has_permission(VIEW,'hrm','users')){?>
+            <!-- <?php if(has_permission(VIEW,'bus','bustype')||has_permission(VIEW,'bus','busstop')||has_permission(VIEW,'bus','pickuppoint')){?>
+            <li class="treeview <?php if($segment1=='bus') echo 'active';?>">
+                <a href="#"> <i class="fa fa-bus ftlayer"></i> <span><?= get_phrase('bus');?></span> <i class="fa fa-angle-left pull-right"></i> </a>
+                <ul class="treeview-menu">
+                    <?php if(has_permission(VIEW,'bus','bustype')){?>
+                    <li class="<?php echo active_link('bustype'); ?>">
+                        <a href="<?= base_url('bus/bustype');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('bus').' '.get_phrase('type');?></a>
+                    </li>
+                    <?php } ?>
+                    <?php if(has_permission(VIEW,'bus','busstop')){?>
+                    <li class="<?php echo active_link('busstop'); ?>">
+                        <a href="<?= base_url('bus/busstop');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('bus').' '.get_phrase('stop');?></a>
+                    </li>
+                    <?php } ?>
+                    <?php if(has_permission(VIEW,'bus','pickuppoint')){?>
+                    <li class="<?php echo active_link('pickuppoint'); ?>">
+                        <a href="<?= base_url('bus/pickuppoint');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('pickup').' '.get_phrase('point');?></a>
+                    </li>
+                    <?php } ?>
+
+                    <?php if(has_permission(VIEW,'bus','bus')){?>
+                    <li class="<?php echo active_link('bus'); ?>">
+                        <a href="<?= base_url('bus/bus');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('manage').' '.get_phrase('bus');?></a>
+                    </li>
+                    <?php } ?>
+                </ul>
+            </li>
+            <?php } ?> -->
+            <?php if(has_permission(VIEW,'hrm','users')||has_permission(VIEW,'hrm','admin')||has_permission(VIEW,'hrm','users')){?>
             <li class="treeview <?php if($segment1=='hrm') echo 'active';?>">
                 <a href="#"> <i class="fa fa-users ftlayer"></i> <span><?= get_phrase('human_resource');?></span> <i class="fa fa-angle-left pull-right"></i> </a>
                 <ul class="treeview-menu">
@@ -92,16 +120,25 @@ $segment_2 =    $this->uri->segment(2);
             <li class="treeview <?php echo active_link('teacher'); ?>">
                 <a href="<?= base_url('teacher/teacher');?>"> <i class="fa fa-user"></i> <span><?= get_phrase('teacher');?></span> </a>
             </li>
+            <?php if($this->session->userdata('role_id')==4){?>
+            <?php if(has_permission(VIEW,'student','student_profile')) {?>
+            <li class="treeview <?php echo active_link('profile'); ?>">
+                <a href="<?= base_url('student/student_profile');?>"> <i class="fa fa-user"></i> <span><?= get_phrase('profile');?></span> </a>
+            </li>
+            <?php } ?>
+            <?php }?>
+            <?php if(has_permission(VIEW,'teacher','teacher')){?>
             <li class="treeview <?php echo active_link('student'); ?>">
                 <a href="<?= base_url('student/student');?>"> <i class="fa fa-graduation-cap"></i> <span><?= get_phrase('student');?></span> </a>
             </li>
+            <?php } ?>
             <li class="treeview <?php if($segment1=='online_exam') echo 'active';?>">
                 <a href="#"> <i class="fa fa-university ftlayer"></i> <span><?= get_phrase('online_exam');?></span> <i class="fa fa-angle-left pull-right"></i> </a>
                 <ul class="treeview-menu">
                     <li class="<?php echo active_link('online_exam'); ?>">
                         <a href="<?= base_url('online_exam/online_exam');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('online').' '.get_phrase('exam');?></a>
                     </li>
-                    <?php if(has_permission(VIEW,'hrm','admin')||has_permission(VIEW,'hrm','users')){?>
+                    <?php if(has_permission(VIEW,'teacher','teacher')||has_permission(VIEW,'hrm','users')){?>
                     <li class="<?php echo active_link('question_bank'); ?>">
                         <a href="<?= base_url('online_exam/question_bank');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('question').' '.get_phrase('bank');?></a>
                     </li>
@@ -114,12 +151,14 @@ $segment_2 =    $this->uri->segment(2);
             <li class="treeview <?php if($segment1=='academic') echo 'active';?>">
                 <a href="#"> <i class="fa fa-users ftlayer"></i> <span><?= get_phrase('academic');?></span> <i class="fa fa-angle-left pull-right"></i> </a>
                 <ul class="treeview-menu">
+                    <?php if(has_permission(VIEW,'hrm','users')){?>
                     <li class="<?php echo active_link('users'); ?>">
                         <a href="<?= base_url('academic/student_class');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('class');?></a>
                     </li>
                      <li class="<?php echo active_link('users'); ?>">
                         <a href="<?= base_url('academic/section');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('section');?></a>
                     </li>
+                    <?php }?>
                      <li class="<?php echo active_link('users'); ?>">
                         <a href="<?= base_url('academic/subject');?>"><i class="fas fa-angle-right"></i> <?= get_phrase('subject');?></a>
                     </li>

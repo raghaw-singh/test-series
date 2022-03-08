@@ -2,22 +2,22 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title titlefix"><?= get_phrase('add').' '.get_phrase('question');?></h3>
+                <h3 class="box-title titlefix"><?= get_phrase('edit').' '.get_phrase('question');?></h3>
             </div>
             <div class="box-body">
-            	<form method="post" class="form-horizontal" onsubmit="return false" id="add_question_form" autocomplete="off">
-                	<input type="hidden" name="id" value="<?= $question_bank_info->id; ?>">
-            		<div class="item form-group">
-                  		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> <?= get_phrase('question_group');?><span class="required">*</span></label>
-                  		<div class="col-md-6 col-sm-6 col-xs-12">
-                      		<select name="question_group" class="form-control select2">
-                          		<option value="">Select</option>
-                          		<?php foreach($questionGroup as $group) { ?>
-                          		<option value="<?= $group->title ;?>" <?php if($question_bank_info->question_group == $group->title) echo 'selected'; ?> ><?= $group->title ;?></option>
-                          		<?php } ?>
-                      		</select>
-                  		</div>
-                	</div>
+              <form method="post" class="form-horizontal" onsubmit="return false" id="add_question_form" autocomplete="off">
+                  <input type="hidden" name="id" value="<?= $question_bank_info->id; ?>">
+                <div class="item form-group">
+                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> <?= get_phrase('question_group');?><span class="required">*</span></label>
+                      <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select name="question_group" class="form-control select2">
+                              <option value="">Select</option>
+                              <?php foreach($questionGroup as $group) { ?>
+                              <option value="<?= $group->title ;?>" <?php if($question_bank_info->question_group == $group->title) echo 'selected'; ?> ><?= $group->title ;?></option>
+                              <?php } ?>
+                          </select>
+                      </div>
+                  </div>
                     <div class="row form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('difficult_level');?></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -39,17 +39,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-    				    <label for="photo" class="col-sm-3 control-label"> <?= get_phrase('upload');?> </label>
-    					<div class="col-sm-4">
-    					    <input class="form-control question_image" placeholder="Select Image" type="file" onchange="return uploadImage()">
-    					    <input type="hidden" name="imagename" class="imagename">
-    					    <div class="progress" id="progress_bar_upload" style="display: none;">
+                <label for="photo" class="col-sm-3 control-label"> <?= get_phrase('upload');?> </label>
+              <div class="col-sm-4">
+                  <input class="form-control question_image" placeholder="Select Image" type="file" onchange="return uploadImage()">
+                  <input type="hidden" name="imagename" class="imagename">
+                  <div class="progress" id="progress_bar_upload" style="display: none;">
                                 <div id="file-progress-bar" class="progress-bar"></div>
                             </div>
-    				    </div>
-    					<div class="col-sm-4" id="uploaded_image"> </div>
-    				</div>
-    				<div class="item form-group">
+                </div>
+              <div class="col-sm-4" id="uploaded_image"> </div>
+            </div>
+            <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
                             <?= get_phrase('mark');?> <span class="required">*</span>
                         </label>
@@ -74,17 +74,17 @@
                         </div>
                     </div>
                     <div class="row form-group has-error" id="totalOptionDiv">
-  					    <label class="col-sm-3 control-label"> Total Option <span class="text-danger">*</span> </label>
-  					    <div class="col-sm-6">
-  					        <select name="totalOption" id="totalOption" class="form-control select2">
-  					            <option value="0" selected="selected">Please Select</option>
-  					            <option value="1" <?php if($question_bank_info->total_option == '1') echo 'selected'; ?> >1</option>
-  					            <option value="2" <?php if($question_bank_info->total_option == '2') echo 'selected'; ?> >2</option>
-  					            <option value="3" <?php if($question_bank_info->total_option == '3') echo 'selected'; ?> >3</option>
-  					            <option value="4" <?php if($question_bank_info->total_option == '4') echo 'selected'; ?> >4</option>
-  					        </select>
-  					    </div>
-  					</div>
+                <label class="col-sm-3 control-label"> Total Option <span class="text-danger">*</span> </label>
+                <div class="col-sm-6">
+                    <select name="totalOption" id="totalOption" class="form-control select2">
+                        <option value="0" selected="selected">Please Select</option>
+                        <option value="1" <?php if($question_bank_info->total_option == '1') echo 'selected'; ?> >1</option>
+                        <option value="2" <?php if($question_bank_info->total_option == '2') echo 'selected'; ?> >2</option>
+                        <option value="3" <?php if($question_bank_info->total_option == '3') echo 'selected'; ?> >3</option>
+                        <option value="4" <?php if($question_bank_info->total_option == '4') echo 'selected'; ?> >4</option>
+                    </select>
+                </div>
+            </div>
                     <input type="hidden" id="total_no_of_options" value="<?= $question_bank_info->total_option;?>">
                     <div class="old_option_data">
                         <?php 
@@ -98,26 +98,28 @@
                         $i=1; foreach($questionOptions as $obj){
                         ?>
                         <div class="form-group coption">
+                            <input type="hidden" name="answer_id[]" value="<?= $obj->id;?>">
                             <label for="option<?= $i;?>" class="col-sm-3 control-label">Option <?= $i;?></label>
                             <div class="col-sm-4" style="display: inline-table;">
                                 <input type="text" class="form-control" id="option<?= $i;?>" name="option[]" value="<?= $obj->options;?>" placeholder="Option <?= $i;?>" />
-                                <span class="input-group-addon">
-                                    <input id="ans_<?= $i;?>" type="hidden" name="opt_answer[]" value="0" /><input class="answer" id="ans<?= $i;?>" type="<?= $question_type;?>" name="opt_answer[]" value="<?= $obj->answers;?>" data-toggle="tooltip" data-placement="top" title="Correct Answer" <?php if($obj->answers==$i)echo 'checked';?> />
+                                <span class="input-group-addon" id="append_<?= $i;?>"> 
+                                    <input type="hidden" name="opt_answer[]" id="ans_<?= $i;?>" value="0" <?php if($obj->answers ==0) echo 'disabled';?>> 
+                                    <input class="answer" id="ans<?= $i;?>" type="<?= $question_type;?>" name="opt_answer[]" value="<?= $i;?>" data-toggle="tooltip" data-placement="top" title="Correct Answer" <?php if($obj->answers==$i)echo 'checked';?> />
                                 </span>
                             </div>
                             <div class="col-sm-3" style="display: inline-table;"><input type="file" name="image1" class="uploadImage<?= $i;?>" id="image<?= $i;?>" onchange="upload_option_image(1)" /> <input type="hidden" name="image_ajax[]" id="image_ajax_image<?= $i;?>" /></div>
                         </div>
                         <?php $i++;} ?>
                     </div>
-  					<div id="in"></div>
-		            
-  					<div class="form-group">
-              			<div class="col-md-6 col-md-offset-3">
-                  			<input type="hidden" name="submit" value="submit">
-                  			<button type="submit" class="btn btn-success saveQuestion" onclick="saveQuestion()">Submit</button>
-              			</div>
-            		</div>
-              	</form>
+            <div id="in"></div>
+                
+            <div class="form-group">
+                    <div class="col-md-6 col-md-offset-3">
+                        <input type="hidden" name="submit" value="submit">
+                        <button type="submit" class="btn btn-success saveQuestion" onclick="saveQuestion()">Submit</button>
+                    </div>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -132,7 +134,15 @@
 <script type="text/javascript">
     $('.select2').select2();
     $('#question').jqte();
+    function checkedAnswer(ans_value){
+        /*var check_answer        =   $('.answer');
 
+        if (check_answer.is(':checked')) {
+            $('#append_'+ans_value+'').html('');
+        }else{
+            $('#append_'+ans_value+'').prop('disabled',false);
+        }*/
+    }
     $(document).ready(function () {
         var totalOptionID = "0";
         if (totalOptionID > 0) {
@@ -252,78 +262,78 @@
            imgcode = this.result;
        };
        $.ajax({
-           	type: 'POST',
-           	url: '<?= base_url('online_exam/question_bank/uploadMediaFile');?>',
-           	data: data,
-           	contentType: false,
-           	cache: false,
-           	processData:false,
-           	enctype: "multipart/form-data",
-           	mimeType: "multipart/form-data",
-           	beforeSend: function(){
+            type: 'POST',
+            url: '<?= base_url('online_exam/question_bank/uploadMediaFile');?>',
+            data: data,
+            contentType: false,
+            cache: false,
+            processData:false,
+            enctype: "multipart/form-data",
+            mimeType: "multipart/form-data",
+            beforeSend: function(){
                $("#file-progress-bar").width('0%');
-           	},
-           	success: function(json){
-               	var getRes  =   $.parseJSON(json);
-               	if(getRes.status=='image'){
+            },
+            success: function(json){
+                var getRes  =   $.parseJSON(json);
+                if(getRes.status=='image'){
                    $('#image_ajax_image'+id+'').val(getRes.imagename);
-               	}
-               	if(getRes.status=='video'){
+                }
+                if(getRes.status=='video'){
                    $('#image_ajax_image'+id+'').val(getRes.imagename);
-               	}
-           	}
-       	});
+                }
+            }
+        });
     }
     function uploadImage(){
-    	jQuery("#chk-error").html('');
-       	$('#progress_bar_upload').show();
-       	data = new FormData();
-       	data.append("photo-file", $(".question_image")[0].files[0]);
-       	var ReaderObj = new FileReader(); // Create instance of the FileReader
-       	ReaderObj.readAsDataURL($(".question_image")[0].files[0]);
-       	ReaderObj.onloadend = function () {
+      jQuery("#chk-error").html('');
+        $('#progress_bar_upload').show();
+        data = new FormData();
+        data.append("photo-file", $(".question_image")[0].files[0]);
+        var ReaderObj = new FileReader(); // Create instance of the FileReader
+        ReaderObj.readAsDataURL($(".question_image")[0].files[0]);
+        ReaderObj.onloadend = function () {
            // set uploaded image data as background of div
            imgcode = this.result;
-       	};
-       	$.ajax({
-         	xhr: function() {
-             	var xhr = new window.XMLHttpRequest();
-             	xhr.upload.addEventListener("progress", function(element) {
-                 	if (element.lengthComputable) {
-                     	var percentComplete = ((element.loaded / element.total) * 100);
-                     	$("#file-progress-bar").width(Math.round(percentComplete) + '%');
-                     	$("#file-progress-bar").html(Math.round(percentComplete)+'%');
-                 	}
-             	}, false);
-             	return xhr;
-         	},
-         	type: 'POST',
-         	url: '<?= base_url('online_exam/question_bank/uploadOptionImage');?>',
-         	data: data,
-         	contentType: false,
-         	cache: false,
-        	processData:false,
-         	//dataType:'json',
-         	enctype: "multipart/form-data",
-         	mimeType: "multipart/form-data",
-         	beforeSend: function(){
+        };
+        $.ajax({
+          xhr: function() {
+              var xhr = new window.XMLHttpRequest();
+              xhr.upload.addEventListener("progress", function(element) {
+                  if (element.lengthComputable) {
+                      var percentComplete = ((element.loaded / element.total) * 100);
+                      $("#file-progress-bar").width(Math.round(percentComplete) + '%');
+                      $("#file-progress-bar").html(Math.round(percentComplete)+'%');
+                  }
+              }, false);
+              return xhr;
+          },
+          type: 'POST',
+          url: '<?= base_url('online_exam/question_bank/uploadOptionImage');?>',
+          data: data,
+          contentType: false,
+          cache: false,
+          processData:false,
+          //dataType:'json',
+          enctype: "multipart/form-data",
+          mimeType: "multipart/form-data",
+          beforeSend: function(){
              $("#file-progress-bar").width('0%');
-         	},
-         	success: function(json){
-             	var getRes  =   $.parseJSON(json);
-             	if(getRes.status=='image'){
-                 	$('#uploaded_image').html(getRes.uploaded_file_path);
-                 	//$('#preview_image').hide();
-                	$('.imagename').val(getRes.imagename);
-                 	$('#progress_bar_upload').hide();
-             	}
-             	if(getRes.status=='video'){
-                 	$('#uploaded_image').html(getRes.uploaded_file_path);
-                 	//$('#preview_image').hide();
-                 	$('#progress_bar_upload').hide();
-                 	$('.imagename').val(getRes.imagename);
-             	}
-         	}
-     	});
+          },
+          success: function(json){
+              var getRes  =   $.parseJSON(json);
+              if(getRes.status=='image'){
+                  $('#uploaded_image').html(getRes.uploaded_file_path);
+                  //$('#preview_image').hide();
+                  $('.imagename').val(getRes.imagename);
+                  $('#progress_bar_upload').hide();
+              }
+              if(getRes.status=='video'){
+                  $('#uploaded_image').html(getRes.uploaded_file_path);
+                  //$('#preview_image').hide();
+                  $('#progress_bar_upload').hide();
+                  $('.imagename').val(getRes.imagename);
+              }
+          }
+      });
     }
 </script>

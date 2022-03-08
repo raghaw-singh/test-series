@@ -3,9 +3,11 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title titlefix"><?= get_phrase('online').' '.get_phrase('exam');?></h3>
+                <?php if(has_permission(VIEW,'teacher','teacher')){?>
                 <div class="pull-right">
                     <a href="<?= base_url('online_exam/online_exam/add_online_exam');?>" class="btn btn-info"><?= get_phrase('add').' '.get_phrase('online_exam');?></a>
                 </div>
+                <?php }?>
             </div>
             <div class="box-body">
                 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -14,9 +16,7 @@
                             <th><?= get_phrase('sr_no') ?></th>
                             <th><?= get_phrase('exam_title') ?></th>
                             <th><?= get_phrase('published') ?></th>
-                            <?php if(has_permission(VIEW,'hrm','users')){?>
                             <th><?= get_phrase('action') ?></th>
-                            <?php }?>
                         </tr>
                     </thead>
                     <?php $count=1; foreach ($exam_details as  $obj) {  ?>
@@ -25,15 +25,21 @@
                             <td><?= $count ;?></td>
                             <td><?= $obj->exam_title; ?></td>
                             <td><?= $obj->published; ?></td>
-                            <?php if(has_permission(VIEW,'hrm','users')){?>
                             <td>
-                                <a href="<?= base_url('online_exam/addQuestion/'.$obj->id) ;?>" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> <?= get_phrase('add_question') ?></a>
+                                <?php if(has_permission(VIEW, 'student','student_profile')){?>
+                                <a href="<?= base_url('online_exam/take_exam/index/'.$obj->id) ;?>" class="btn btn-success btn-xs" data-toggle="tooltip" title="<?= get_phrase('take_exam');?>"><i class="fa fa-clipboard"></i></a>
+                                <?php }?>
 
-                                <a href="<?= base_url('online_exam/online_exam/edit_online_exam/'.$obj->id) ;?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                                <?php if(has_permission(VIEW, 'teacher','teacher')){?>
+                                <a href="<?= base_url('online_exam/add_question/index/'.$obj->id) ;?>" class="btn btn-success btn-xs" data-toggle="tooltip" title="<?= get_phrase('add_question');?>"><i class="fa fa-plus"></i></a>
 
-                                <a href="<?= base_url('online_exam/online_exam/delete/'.$obj->id) ;?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> delete</a>
+                                <a href="<?= base_url('online_exam/online_exam/edit_online_exam/'.$obj->id) ;?>" class="btn btn-warning btn-xs" data-toggle="tooltip" title="<?= get_phrase('edit')?>"><i class="fa fa-edit"></i></a>
+                                <?php }?>
+                                <?php if(has_permission(VIEW, 'hrm','users')){?>
+                                <a href="<?= base_url('online_exam/online_exam/delete/'.$obj->id) ;?>" class="btn btn-danger btn-xs" data-toggle="tooltip" title="<?= get_phrase('delete')?>"><i class="fa fa-trash"></i> 
+                                </a>
+                                <?php } ?>
                             </td>
-                            <?php } ?>
                         </tr>
                     </tbody><?php $count ++ ;  }   ?>
                 </table>

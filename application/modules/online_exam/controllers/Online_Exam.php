@@ -19,6 +19,10 @@ class Online_Exam extends MY_Controller {
     }
 
     function add_online_exam(){
+        $this->data['classData']         =       $this->online_exam_model->getClass();
+        $this->data['sectionData']       =       $this->online_exam_model->getSection();
+        $this->data['groupData']         =       $this->online_exam_model->getGroup();
+        $this->data['subjectData']       =       $this->online_exam_model->getSubject();
         $this->layout->title(get_phrase('add_online_exam'));
         $this->layout->view('online_exam/online_exam/add_online_exam',$this->data);
     }
@@ -62,6 +66,10 @@ class Online_Exam extends MY_Controller {
     }
 
     function edit_online_exam($id=''){
+        $this->data['classData']         =       $this->online_exam_model->getClass();
+        $this->data['sectionData']       =       $this->online_exam_model->getSection();
+        $this->data['groupData']         =       $this->online_exam_model->getGroup();
+        $this->data['subjectData']       =       $this->online_exam_model->getSubject();
         $this->data['exam_info']      =    $this->online_exam_model->getExamById($id);
         $this->layout->title(get_phrase('edit_online_exam'));
         $this->layout->view('online_exam/online_exam/edit_online_exam',$this->data);

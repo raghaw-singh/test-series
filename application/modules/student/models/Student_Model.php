@@ -22,4 +22,11 @@ class Student_Model extends MY_Model {
         $this->db->where('S.user_id',$id);
         return $this->db->get()->row();
     }
+    function getStudentData(){
+        $this->db->select('S.*,U.first_name,U.last_name,U.email,U.photo,U.phone');
+        $this->db->from('student as S');
+        $this->db->join('users as U','U.id=S.user_id','left');
+        $this->db->where('S.user_id',$this->session->userdata('id'));
+        return $this->db->get()->row();
+    }
 }    

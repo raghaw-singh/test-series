@@ -67,6 +67,9 @@ class Auth extends CI_Controller {
                     $this->session->set_userdata('role_id', $login->role_id);
                     $this->session->set_userdata('id', $login->id);
                     $this->session->set_userdata('email', $login->email);
+                    $this->session->set_userdata('phone', $login->phone);
+                    $this->session->set_userdata('name', $login->first_name);
+                    $this->session->set_userdata('photo', $login->photo);
 
                     if (isset($profile->name)) {
                        $this->session->set_userdata('name', $profile->name);

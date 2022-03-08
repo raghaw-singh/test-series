@@ -276,7 +276,7 @@ class Question_Bank extends MY_Controller
 
                 $this->db->where('id',$id);
                 $update = $this->db->update("question_bank", $save);
-                // $last_id = $this->db->insert_id();
+
                 $type                               =   $this->input->post('type');
                 if ($update) {
                     echo json_encode(array('status'=>'true','message'=>get_phrase('question_updated_successfully')));
@@ -288,34 +288,53 @@ class Question_Bank extends MY_Controller
                             if(!empty($answers[$i])){
                                 $new_row            =   array(
                                     'answers'=>$answers[$i],
+                                    
                                 );
+                                array_push($optionArray, $new_row);
                             }
-                            array_push($optionArray,$new_row);
                         }
-                        $this->db->where('question_id',$id);
-                        $this->db->update('answers',$optionArray);
-                    }  else{
+                    }else{
+                       // print_r($this->input->post('opt_answer'));
                         $optionArray                =   array();
+                        $answer_ids                 =   $this->input->post('answer_id');
                         $options                    =   $this->input->post('option');
-                        $opt_answer                 =   $this->input->post('opt_answer');
+                        $opt_answers                =   $this->input->post('opt_answer');
                         $image_ajaxs                =   $this->input->post('image_ajax');
                         $total_option               =   $this->input->post('totalOption');
                         for($i=0; $i<$total_option;$i++){
-                            $new_row                =   array(
-                                'answers'=>$opt_answer[$i],
-                                'options'=>$options[$i],
-                                'images'=>$image_ajaxs[$i],
-                            );
-                            array_push($optionArray,$new_row);
+                            $checkAns               =   $this->db->get_where('answers',array('id'=>$answer_ids[$i]))->row();
+
+                            if($checkAns){
+                                $save_ans                =   array(
+                                    'answers'=>$opt_answers[$i],
+                                    'options'=>$options[$i],
+                                    'images'=>$image_ajaxs[$i],
+                                    'question_id'=>$id
+                                );
+                                $this->db->where('id',$answer_ids[$i]);
+                                $this->db->update('answers',$save_ans);
+                            }else{
+                                $new_row                =   array(
+                                    'answers'=>$opt_answers[$i],
+                                    'options'=>$options[$i],
+                                    'images'=>$image_ajaxs[$i],
+                                    'question_id'=>$id
+                                );
+                                $this->db->insert('answers',$new_row);
+                            }
                         }
-                        $this->db->where('question_id',$id);
-                        $this->db->update('answers',$optionArray);
                     }
                 }else{
                     echo json_encode(array('status'=>'false','message'=>get_phrase('something_went_wrong')));
                 }
             }
         }
+    }
+    function view($id=''){
+        $this->data['question_bank_info']    =    $this->question_bank_model->questionBankById($id);
+        $this->data['answers_info']          =    $this->question_bank_model->getAnswerById($id);
+        $this->layout->title("view_question");
+        $this->layout->view("online_exam/question_bank/view", $this->data);
     }
 
 

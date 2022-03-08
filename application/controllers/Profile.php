@@ -98,23 +98,8 @@ class Profile extends My_Controller {
                 $full_name                          =   explode(' ',$this->input->post('name'));
                 $data['first_name']                 =   $full_name[0];
                 $data['last_name']                  =   $full_name[1];
-                $emp['phone']                       =   $this->input->post('phone');
                 $data['email']                      =   $this->input->post('email');
-                $emp['gender']                      =   $this->input->post('gender');
-                $emp['dob']                         =   date('Y-m-d',strtotime($this->input->post('dob')));
-                $emp['national_id']                 =   $this->input->post('national_id');
-                $emp['present_address']             =   $this->input->post('present_address');
-                $emp['permanent_address']           =   $this->input->post('permanent_address');
-                $emp['joining_date']                =   date('Y-m-d',strtotime($this->input->post('joining_date')));
-                $emp['is_view_on_web']              =   $this->input->post('is_view_on_web');
-                $emp['facebook_url']                =   $this->input->post('facebook_url');
-                $emp['linkedin_url']                =   $this->input->post('linkedin_url');
-                $emp['twitter_url']                 =   $this->input->post('twitter_url');
-                $emp['google_plus_url']             =   $this->input->post('google_plus_url');
-                $emp['instagram_url']               =   $this->input->post('instagram_url');
-                $emp['youtube_url']                 =   $this->input->post('youtube_url');
-                $emp['pinterest_url']               =   $this->input->post('pinterest_url');
-                $emp['other_info']                  =   $this->input->post('other_info');
+                
                 if(!empty($_FILES['photo']['name'])){
                     $save['photo']                  =   $_FILES['photo']['name'];
                     move_uploaded_file($_FILES['photo']['tmp_name'],'uploads/employee-photo/'.$_FILES['photo']['name']);
@@ -124,6 +109,24 @@ class Profile extends My_Controller {
                 $update                             =   $this->db->update('users',$data);
                 if($update){
                     $this->db->where('user_id',logged_in_user_id());
+                    $emp['name']                        =   $this->input->post('name');
+                    $emp['religion']                    =   $this->input->post('religion');
+                    $emp['phone']                       =   $this->input->post('phone');
+                    $emp['gender']                      =   $this->input->post('gender');
+                    $emp['dob']                         =   date('Y-m-d',strtotime($this->input->post('dob')));
+                    $emp['national_id']                 =   $this->input->post('national_id');
+                    $emp['present_address']             =   $this->input->post('present_address');
+                    $emp['permanent_address']           =   $this->input->post('permanent_address');
+                    $emp['joining_date']                =   date('Y-m-d',strtotime($this->input->post('joining_date')));
+                    $emp['is_view_on_web']              =   $this->input->post('is_view_on_web');
+                    $emp['facebook_url']                =   $this->input->post('facebook_url');
+                    $emp['linkedin_url']                =   $this->input->post('linkedin_url');
+                    $emp['twitter_url']                 =   $this->input->post('twitter_url');
+                    $emp['google_plus_url']             =   $this->input->post('google_plus_url');
+                    $emp['instagram_url']               =   $this->input->post('instagram_url');
+                    $emp['youtube_url']                 =   $this->input->post('youtube_url');
+                    $emp['pinterest_url']               =   $this->input->post('pinterest_url');
+                    $emp['other_info']                  =   $this->input->post('other_info');
                     $emp                            =   $this->security->xss_clean($emp);
                     $this->db->update('employees',$emp);
                     $this->session->set_flashdata('success',get_phrase('update_success'));

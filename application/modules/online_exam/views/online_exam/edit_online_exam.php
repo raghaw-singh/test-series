@@ -4,7 +4,7 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a ><i class="fa fa-plus-square-o"></i> <?= get_phrase('add_online_exam') ?></a>
+                    <a ><i class="fa fa-plus-square-o"></i> <?= get_phrase('edit_online_exam') ?></a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -32,11 +32,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="class" class="form-control col-md-7 col-xs-12">
                                         <option value="">Select Class</option>
-                                        <option value="One">One</option>
-                                        <option value="Two">Two</option>
-                                        <option value="three">Three</option>
-                                        <option value="Four">Four</option>
-                                        <option value="Five">Five</option>
+                                        <?php foreach($classData as $obj){ ?>
+                                        <option value="<?= $obj->class ?>"><?= $obj->class ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>
@@ -46,8 +44,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="section" class="form-control col-md-7 col-xs-12">
                                         <option value="">Select Section</option>
-                                        <option value="A" <?php if($exam_info->section == 'A') echo 'selected' ?> >A</option>
-                                        <option value="B" <?php if($exam_info->section == 'B') echo 'selected' ?> >B</option>
+                                        <?php foreach($sectionData as $obj){ ?>
+                                        <option value="<?= $obj->section ?>"><?= $obj->section ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>
@@ -57,9 +56,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="student_group" class="form-control col-md-7 col-xs-12">
                                     	<option>Select Group</option>
-                                        <option value="science" <?php if($exam_info->student_group == 'science') echo 'selected' ?> >science</option>
-                                        <option value="arts" <?php if($exam_info->student_group == 'arts') echo 'selected' ?> >arts</option>
-                                        <option value="commerce" <?php if($exam_info->student_group == 'commerce') echo 'selected' ?> >commerce</option>
+                                        <?php foreach($groupData as $obj){ ?>
+                                        <option value="<?= $obj->title ?>"><?= $obj->title ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>
@@ -69,8 +68,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="subject" class="form-control col-md-7 col-xs-12">
                                     	<option>Select Subject</option>
-                                        <option value="computer" <?php if($exam_info->subject == 'computer') echo 'selected' ?> >computer</option>
-                                        <option value="english" <?php if($exam_info->subject == 'english') echo 'selected' ?> >english</option>
+                                        <?php foreach($subjectData as $obj){ ?>
+                                        <option value="<?= $obj->subject_name ?>"><?= $obj->subject_name ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>

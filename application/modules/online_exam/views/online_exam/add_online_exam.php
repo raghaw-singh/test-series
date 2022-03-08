@@ -31,11 +31,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="class" class="form-control col-md-7 col-xs-12">
                                         <option value="">Select Class</option>
-                                        <option value="One">One</option>
-                                        <option value="Two">Two</option>
-                                        <option value="three">Three</option>
-                                        <option value="Four">Four</option>
-                                        <option value="Five">Five</option>
+                                        <?php foreach($classData as $obj){ ?>
+                                        <option value="<?= $obj->class ?>"><?= $obj->class ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>
@@ -45,8 +43,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="section" class="form-control col-md-7 col-xs-12">
                                         <option value="">Select Section</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
+                                        <?php foreach($sectionData as $obj){ ?>
+                                        <option value="<?= $obj->section ?>"><?= $obj->section ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>
@@ -56,9 +55,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="student_group" class="form-control col-md-7 col-xs-12">
                                     	<option>Select Group</option>
-                                        <option value="science">science</option>
-                                        <option value="arts">arts</option>
-                                        <option value="commerce">commerce</option>
+                                        <?php foreach($groupData as $obj){ ?>
+                                        <option value="<?= $obj->title ?>"><?= $obj->title ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>
@@ -68,8 +67,9 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="subject" class="form-control col-md-7 col-xs-12">
                                     	<option>Select Subject</option>
-                                        <option value="computer">computer</option>
-                                        <option value="english">english</option>
+                                        <?php foreach($subjectData as $obj){ ?>
+                                        <option value="<?= $obj->subject_name ?>"><?= $obj->subject_name ?></option>
+                                        <?php }?>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>

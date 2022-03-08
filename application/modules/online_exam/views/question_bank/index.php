@@ -37,9 +37,12 @@
                                     
                             </td>
                             <td>
-                                <a href="<?= base_url('online_exam/question_bank/edit/'.$obj->id) ;?>" data-toggle="tooltip" title="<?= get_phrase('edit');?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+                                <a href="<?= base_url('online_exam/question_bank/view/'.$obj->id) ;?>" data-toggle="tooltip" title="<?= get_phrase('view');?>" class="btn btn-success btn-xs"><i class="fa fa-eye"></i></a>
 
+                                <a href="<?= base_url('online_exam/question_bank/edit/'.$obj->id) ;?>" data-toggle="tooltip" title="<?= get_phrase('edit');?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+                                <?php if(has_permission(VIEW,'hrm','users')){?>
                                 <a href="<?= base_url('online_exam/question_bank/delete/'.$obj->id) ;?>" data-toggle="tooltip" title="<?= get_phrase('delete');?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                                <?php }?>
                             </td>
                         </tr>
                     </tbody> <?php $count ++ ;  }   ?>
