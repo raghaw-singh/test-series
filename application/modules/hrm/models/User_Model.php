@@ -10,11 +10,11 @@ class User_Model extends MY_Model {
     }
     
     public function get_employee_list(){
-        $this->db->select('U.*,E.name,E.is_view_on_web');
+        $this->db->select('U.*,E.name,E.is_view_on_web,S.name as student_name,T.name as teacher_name,T.is_show_web');
         $this->db->from('users as U');
         $this->db->join('employees as E','E.user_id=U.id','left');
-        $this->db->where('U.role_id',1);
-        $this->db->or_where('U.role_id',2);
+        $this->db->join('students as S','S.user_id=U.id','left');
+        $this->db->join('teachers as T','T.user_id=U.id','left');
         return $this->db->get()->result();
     }
     public function get_single_employee($id){

@@ -19,7 +19,8 @@ class Teacher extends MY_Controller {
         $this->layout->view('teacher/index',$this->data);
     }
     function add_teacher(){
-    	$this->form_validation->set_rules('name', get_phrase('name'), 'trim|required');
+    	$this->form_validation->set_rules('first_name', get_phrase('first_name'), 'trim|required');
+        $this->form_validation->set_rules('last_name', get_phrase('last_name'), 'trim|required');
     	$this->form_validation->set_rules('designation', get_phrase('designation'), 'trim|required');
     	$this->form_validation->set_rules('date_of_birth', get_phrase('date_of_birth'), 'trim|required');
     	$this->form_validation->set_rules('email', get_phrase('email'), 'trim|required|valid_email');
@@ -28,7 +29,8 @@ class Teacher extends MY_Controller {
 
     	if($this->form_validation->run()== false){
     		$error   =    array(
-                    'name'=>      form_error('name'),
+                    'first_name'=>      form_error('first_name'),
+                    'last_name' =>form_error('last_name'),
                     'designation'=>  form_error('designation'),
                     'date_of_birth'=>   form_error('date_of_birth'),
                     'date_of_joining' =>   form_error('date_of_joining'),
@@ -38,7 +40,8 @@ class Teacher extends MY_Controller {
                 $arr     =    array('status'=>    'error', 'message'=>$error);
                 echo json_encode($arr);
     	} else{
-    		$save['first_name']           =    $this->input->post('name');
+    		$save['first_name']           =    $this->input->post('first_name');
+            $save['last_name']              =   $this->input->post('last_name');
     		$save['email']          =    $this->input->post('email');
     		$save['phone']           =    $this->input->post('phone');
     		$save['created_at']      =    date('Y-m-d H:i:s');
@@ -62,7 +65,7 @@ class Teacher extends MY_Controller {
                 $teacher['joining_date']    =    $this->input->post('date_of_joining');
                 $teacher['created_at']         =    date('Y-m-d H:i:s');
                 $teacher['status']          =    '1';
-                $teacher['name']            =    $this->input->post('name');
+                $teacher['name']            =    $this->input->post('first_name').' '.$this->input->post('last_name');
                 $teacher['user_id']         =    $last_id;
 
                 $this->db->insert('teacher',$teacher);
@@ -89,7 +92,8 @@ class Teacher extends MY_Controller {
 
     function save_edit(){
         $user_id                 =    $this->input->post('user_id');
-        $save['first_name']      =    $this->input->post('name');
+        $save['first_name']      =    $this->input->post('first_name');
+        $save['last_name']      =   $this->input->post("last_name");
         $save['email']           =    $this->input->post('email');
         $save['phone']           =    $this->input->post('phone');
         $save['modified_at']     =    date('Y-m-d H:i:s');
@@ -104,7 +108,7 @@ class Teacher extends MY_Controller {
 
         if($update){  
             $id                      =    $this->input->post('id');
-            $teacher['name']            =    $this->input->post('name');
+            $teacher['name']            =    $this->input->post('first_name').' '.$this->input->post('last_name');
             $teacher['designation']     =    $this->input->post('designation');
             $teacher['date_of_birth']   =    $this->input->post('date_of_birth');
             $teacher['joining_date']    =    $this->input->post('date_of_joining');
@@ -127,11 +131,11 @@ class Teacher extends MY_Controller {
     function delete(){
         $teacher_id                    =   $this->input->post('teacher_id');
         if(!empty($teacher_id)){
-            $this->db->where('user_id',$teacher_id);
-            $delete                     =   $this->db->delete('teacher');
+            $this->db->where('id',$teacher_id);
+            $delete                     =   $this->db->delete('users');
             if($delete){
-                $this->db->where('id',$teacher_id);
-                $this->db->delete('users');
+                $this->db->where('user_id',$teacher_id);
+                $this->db->delete('teacher');
                 echo json_encode(array('status'=>'true','message'=>get_phrase('teacher_deleted')));
             }
         }

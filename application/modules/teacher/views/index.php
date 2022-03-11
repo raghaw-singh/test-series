@@ -61,11 +61,17 @@
                     <div class="x_content">
                         <form method="post" id="register_form" autocomplete="off" class="form-horizontal form-label-left" onsubmit="return false" accept-charset="utf-8">
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('name');?> <span class="required">*</span> </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('first_name');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input class="form-control col-md-7 col-xs-12" name="name" type="text" />
-                                    <span class="text-danger"><?= form_error('name'); ?></span>
-                                    <div class="help-block"></div>
+                                    <input class="form-control col-md-7 col-xs-12" name="first_name" type="text" />
+                                    <span class="text-danger"><?= form_error('first_name'); ?></span>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('last_name');?> <span class="required">*</span> </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input class="form-control col-md-7 col-xs-12" name="last_name" type="text" />
+                                    <span class="text-danger"><?= form_error('last_name'); ?></span>
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -89,7 +95,6 @@
                                         <option value="male">male</option>
                                         <option value="female">female</option>
                                     </select>    
-                                    <div class="help-block"></div>
                                 </div>
                             </div>    
                             <div class="ln_solid"></div>

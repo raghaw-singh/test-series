@@ -26,16 +26,12 @@ class Section extends MY_Controller {
 
     function save_add(){
         $this->form_validation->set_rules('section', get_phrase('section'), 'trim|required');
-        $this->form_validation->set_rules('capacity', get_phrase('capacity'), 'trim|required');
-        $this->form_validation->set_rules('category', get_phrase('category'), 'trim|required');
         $this->form_validation->set_rules('class', get_phrase('class'), 'trim|required');
         $this->form_validation->set_rules('teacher_name', get_phrase('teacher_name'), 'trim|required');
 
         if($this->form_validation->run()== false){
             $error   =    array(
                 'section'=>      form_error('section'),
-                'capacity'=>  form_error('capacity'),
-                'category'=>      form_error('category'),
                 'teacher_name'=>  form_error('teacher_name'),
                 'class'=>      form_error('class'),
             );
@@ -45,8 +41,6 @@ class Section extends MY_Controller {
 
             $save['class']           =    $this->input->post('class');
             $save['teacher_name']    =    $this->input->post('teacher_name');
-            $save['capacity']        =    $this->input->post('capacity');
-            $save['category']        =    $this->input->post('category');
             $save['section']         =    $this->input->post('section');
 
             $insert   =   $this->db->insert('section',$save);
@@ -68,16 +62,12 @@ class Section extends MY_Controller {
 
     function save_edit(){
         $this->form_validation->set_rules('section', get_phrase('section'), 'trim|required');
-        $this->form_validation->set_rules('capacity', get_phrase('capacity'), 'trim|required');
-        $this->form_validation->set_rules('category', get_phrase('category'), 'trim|required');
         $this->form_validation->set_rules('class', get_phrase('class'), 'trim|required');
         $this->form_validation->set_rules('teacher_name', get_phrase('teacher_name'), 'trim|required');
 
         if($this->form_validation->run()== false){
             $error   =    array(
                 'section'=>      form_error('section'),
-                'capacity'=>  form_error('capacity'),
-                'category'=>      form_error('category'),
                 'teacher_name'=>  form_error('teacher_name'),
                 'class'=>      form_error('class'),
             );
@@ -87,8 +77,6 @@ class Section extends MY_Controller {
             $id                      =    $this->input->post('id');
             $save['class']           =    $this->input->post('class');
             $save['teacher_name']    =    $this->input->post('teacher_name');
-            $save['capacity']        =    $this->input->post('capacity');
-            $save['category']        =    $this->input->post('category');
             $save['section']         =    $this->input->post('section');
 
             $this->db->where('id',$id);

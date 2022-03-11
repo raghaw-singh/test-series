@@ -20,28 +20,12 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('capacity');?> <span class="required">*</span> </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input class="form-control col-md-7 col-xs-12" name="capacity" type="text" />
-                                    <span class="text-danger"><?= form_error('capacity'); ?></span>
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('category');?> <span class="required">*</span> </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input class="form-control col-md-7 col-xs-12" name="category" type="text" />
-                                    <span class="text-danger"><?= form_error('category'); ?></span>
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('class');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="class" class="form-control col-md-7 col-xs-12">
                                         <option value="">select</option>
                                         <?php foreach ($class_info as $obj) { ?>
-                                        <option value="<?= $obj->class ?>"> <?= $obj->class?></option>
+                                        <option value="<?= $obj->id ?>"> <?= $obj->class?></option>
                                         <?php } ?>
                                     </select>    
                                     <div class="help-block"></div>
@@ -53,7 +37,7 @@
                                     <select name="teacher_name" class="form-control col-md-7 col-xs-12">
                                         <option value="">select</option>
                                         <?php foreach ($teachers_info as $obj) { ?>
-                                        <option value="<?= $obj->name ?>"> <?= $obj->name ?></option>
+                                        <option value="<?= $obj->user_id ?>"> <?= $obj->name ?></option>
                                         <?php } ?>
                                     </select>    
                                     <div class="help-block"></div>

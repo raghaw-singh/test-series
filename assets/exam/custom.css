@@ -1,0 +1,62 @@
+.text-bold {font-weight: bold;}
+
+.lang-timer p{
+	margin-bottom: 1px;
+}
+.top {
+	height: 50px;
+	overflow: hidden;
+	padding-top: 10px;
+	margin-bottom: 10px;
+}
+.sub-btn {
+	min-width: 160px;
+	margin: 2%; 
+}
+/* Question Button Legends */
+.btn-ans{
+	height: 39px; width: 39px;
+	padding: 8px 1px;
+	text-align: center;
+    background-repeat: no-repeat;
+    background-size: 100% 85%;
+    background-position: 0 33%;
+    color: white;
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-left:-1px;
+    cursor: pointer;
+}
+
+.btn-ans:hover{
+	background-color: lightblue;
+}
+
+.no-visit {
+	background-image : url('img/no_visit.png');
+	color: black;
+}
+.no-ans {
+	background-image : url('img/no-ans.png');
+}
+.mark-review {
+	background-image : url('img/mark_review.png');
+}
+.ans {
+	background-image : url('img/ans.png');
+}
+.ans-mark-review {
+	background-image : url('img/ans_mark_review.png');
+}
+.well .btn {
+	min-width: 120px;
+	margin-bottom: 4px;
+}
+/*Score Card Page*/
+table tr td:first-child{font-weight: bold; font-size: 12px;}
+.table-striped tbody tr td { padding-left: 2px;}
+.table-striped {margin-left:-10px;}
+table.table-striped tr td:nth-child(even){vertical-align: middle; font-style: italic;}
+/*.sc-head:nth-child(even){background-image: linear-gradient(pink, red);}
+.sc-head:nth-child(odd){background-image: linear-gradient(brown, yellow);}*/

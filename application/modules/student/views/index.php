@@ -27,7 +27,7 @@
                     <tbody>
                         <tr>
                             <td><?= $count ;?></td>
-                            <td><?= $student_info->first_name; ?></td>
+                            <td><?= $student_info->first_name.' '.$student_info->last_name; ?></td>
                             <td><?= $student_info->email; ?></td>
                             <td><?= $student_info->roll; ?></td>
                             <?php if(has_permission(VIEW,'hrm','users')){?>

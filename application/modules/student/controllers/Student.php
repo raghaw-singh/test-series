@@ -19,26 +19,27 @@ class Student extends MY_Controller {
     }
 
     function add(){
+        $this->data['classList']        =   $this->db->get('class')->result();
     	$this->data['studentData']     =    $this->student_model->getStudent();
     	$this->layout->title(get_phrase('add student'));
         $this->layout->view('student/add',$this->data);
     }
 
     function add_student(){
-    	$this->form_validation->set_rules('name', get_phrase('name'), 'trim|required');
+    	$this->form_validation->set_rules('first_name', get_phrase('first_name'), 'trim|required');
+        $this->form_validation->set_rules('last_name', get_phrase('last_name'), 'trim|required');
     	$this->form_validation->set_rules('email', get_phrase('email'), 'trim|required|valid_email');
     	$this->form_validation->set_rules('class', get_phrase('class'), 'trim|required');
     	$this->form_validation->set_rules('section', get_phrase('section'), 'trim|required');
-    	$this->form_validation->set_rules('register_no', get_phrase('register_no'), 'trim|required');
     	$this->form_validation->set_rules('roll', get_phrase('roll'), 'trim|required');
     	$this->form_validation->set_rules('password', get_phrase('password'), 'trim|required|min_length[6]');
 
     	if($this->form_validation->run()== false){
     		$error   =    array(
-                    'name'=>      form_error('name'),
+                    'first_name'=>      form_error('first_name'),
+                    'last_name'=>form_error('last_name'),
                     'class'=>  form_error('class'),
                     'section'=>   form_error('section'),
-                    'register_no' =>   form_error('register_no'),
                     'roll' =>   form_error('roll'),
                     'email' =>    form_error('email'),
                     'password'=>  form_error('password'),
@@ -46,11 +47,12 @@ class Student extends MY_Controller {
                 $arr     =    array('status'=>    'error', 'message'=>$error);
                 echo json_encode($arr);
     	}else{
-    		$save['first_name']      =    $this->input->post('name');
+            $save['last_name']       =   $this->input->post('last_name');
+    		$save['first_name']      =    $this->input->post('first_name');
     		$save['email']           =    $this->input->post('email');
     		$save['phone']           =    $this->input->post('phone');
     		$save['created_at']      =    date('Y-m-d H:i:s');
-            $save['role_id']         =  '3';
+            $save['role_id']         =   '3';
     		$save['password']        =   password_hash($this->input->post('password'), PASSWORD_BCRYPT);
     		$save['temp_password']   =   base64_encode($this->input->post('password'));
 
@@ -62,24 +64,16 @@ class Student extends MY_Controller {
             $last_id    =   $this->db->insert_id();
 
             if($insert){
-                $student['guardian']        =    $this->input->post('guardian');
                 $student['gender']          =    $this->input->post('gender');
                 $student['religion']        =    $this->input->post('religion');
                 $student['address']         =    $this->input->post('address');
-                $student['state']           =    $this->input->post('state');
-                $student['country']         =    $this->input->post('country');
                 $student['class']           =    $this->input->post('class');
                 $student['section']         =    $this->input->post('section');
-                $student['group']           =    $this->input->post('group');
-                $student['register_no']     =    $this->input->post('register_no');
                 $student['roll']            =    $this->input->post('roll');
-                $student['curricular']      =    $this->input->post('curricular');
-                $student['remarks']         =    $this->input->post('remarks');
                 $student['date_of_birth']   =    $this->input->post('date_of_birth');
                 $student['created_at']      =    date('Y-m-d H:i:s');
                 $student['status']          =    '1';
                 $student['user_id']         =    $last_id;
-
                 $this->db->insert('student',$student);
             	echo json_encode(array('status'=>'true','message'=>'student added successfully'));
             }else{
@@ -104,25 +98,26 @@ class Student extends MY_Controller {
         $this->layout->view('student/view',$this->data);
     }
     function edit($id=''){
+        $this->data['classList']        =   $this->db->get('class')->result();
         $this->data['student_info']     =    $this->student_model->getStudentById($id);
         $this->layout->title(get_phrase('edit student'));
         $this->layout->view('student/edit',$this->data);
     } 
 
     function save_edit(){
-    	$this->form_validation->set_rules('name', get_phrase('name'), 'trim|required');
+    	$this->form_validation->set_rules('first_name', get_phrase('first_name'), 'trim|required');
+        $this->form_validation->set_rules('last_name', get_phrase('last_name'), 'trim|required');
     	$this->form_validation->set_rules('email', get_phrase('email'), 'trim|required|valid_email');
     	$this->form_validation->set_rules('class', get_phrase('class'), 'trim|required');
     	$this->form_validation->set_rules('section', get_phrase('section'), 'trim|required');
-    	$this->form_validation->set_rules('register_no', get_phrase('register_no'), 'trim|required');
     	$this->form_validation->set_rules('roll', get_phrase('roll'), 'trim|required');
 
     	if($this->form_validation->run()== false){
     		$error   =    array(
-                    'name'=>      form_error('name'),
+                    'first_name'=>      form_error('first_name'),
+                    'last_name'=>form_error('last_name'),
                     'class'=>     form_error('class'),
                     'section'=>   form_error('section'),
-                    'register_no' =>   form_error('register_no'),
                     'roll' =>      form_error('roll'),
                     'email' =>     form_error('email')
                 );
@@ -130,7 +125,8 @@ class Student extends MY_Controller {
                 echo json_encode($arr);
     	}else{
 	    	$user_id                 =    $this->input->post('user_id');
-	        $save['first_name']      =    $this->input->post('name');
+	        $save['first_name']      =    $this->input->post('first_name');
+            $save['last_name']      =   $this->input->post('last_name');
 	        $save['email']           =    $this->input->post('email');
 	        $save['phone']           =    $this->input->post('phone');
 	        $save['modified_at']     =    date('Y-m-d H:i:s');
@@ -145,19 +141,12 @@ class Student extends MY_Controller {
 
 	        if($update){  
 	            $id                         =    $this->input->post('id');
-	            $student['guardian']        =    $this->input->post('guardian');
 	            $student['gender']          =    $this->input->post('gender');
 	            $student['religion']        =    $this->input->post('religion');
 	            $student['address']         =    $this->input->post('address');
-	            $student['state']           =    $this->input->post('state');
-	            $student['country']         =    $this->input->post('country');
 	            $student['class']           =    $this->input->post('class');
 	            $student['section']         =    $this->input->post('section');
-	            $student['group']           =    $this->input->post('group');
-	            $student['register_no']     =    $this->input->post('register_no');
 	            $student['roll']            =    $this->input->post('roll');
-	            $student['curricular']      =    $this->input->post('curricular');
-	            $student['remarks']         =    $this->input->post('remarks');
 	            $student['date_of_birth']   =    $this->input->post('date_of_birth');
 	            $student['updated_at']      =    date('Y-m-d H:i:s');
 

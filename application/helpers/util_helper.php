@@ -14,23 +14,6 @@ if (!function_exists('_d')) {
     }
 
 }
-if (!function_exists('get_blood_group')) {
-
-    function get_blood_group() {
-        $ci = & get_instance();
-        return array(
-            'a_positive' => get_phrase('a_positive'),
-            'a_negative' => get_phrase('a_negative'),
-            'b_positive' => get_phrase('b_positive'),
-            'b_negative' => get_phrase('b_negative'),
-            'o_positive' => get_phrase('o_positive'),
-            'o_negative' => get_phrase('o_negative'),
-            'ab_positive' => get_phrase('ab_positive'),
-            'ab_negative' => get_phrase('ab_negative')
-        );
-    }
-
-}
 if ( !function_exists('inicompute') ) {
     function inicompute( $array )
     {
@@ -373,10 +356,12 @@ if (!function_exists('get_user_by_role')) {
             $ci->db->where('T.user_id', $user_id);
             return $ci->db->get()->row();
         } else {
-            $ci->db->select('E.*, U.email, U.role_id, R.name AS role');
+            $ci->db->select('E.*, U.email, U.role_id, R.name AS role, D.name AS designation, SG.grade_name');
             $ci->db->from('employees AS E');
             $ci->db->join('users AS U', 'U.id = E.user_id', 'left');
             $ci->db->join('roles AS R', 'R.id = U.role_id', 'left');
+            $ci->db->join('designations AS D', 'D.id = E.designation_id', 'left');
+            $ci->db->join('salary_grades AS SG', 'SG.id = E.salary_grade_id', 'left');
             $ci->db->where('E.user_id', $user_id);
             return $ci->db->get()->row();
         }

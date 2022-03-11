@@ -14,22 +14,15 @@
                             <input type="hidden" name="user_id" value="<?= $student_info->user_id ?>">
                             <input type="hidden" name="id" value="<?= $student_info->id ?>">
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('name');?> <span class="required">*</span> </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('first_name');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input class="form-control col-md-7 col-xs-12" name="name" type="text" value="<?= $student_info->first_name ?>" />
-                                    <span class="text-danger"><?= form_error('name'); ?></span>
-                                    <div class="help-block"></div>
+                                    <input class="form-control col-md-7 col-xs-12" name="first_name" type="text" value="<?= $student_info->first_name ?>" />
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('guardian');?> </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name"><?= get_phrase('last_name');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="guardian" class="form-control col-md-7 col-xs-12">
-                                        <option value="">select guardian</option>
-                                        <option value="john" <?php if($student_info->guardian == 'john') echo 'selected' ;?> >john</option>
-                                        <option value="smith" <?php if($student_info->guardian == 'smith') echo 'selected' ;?>>smith</option>
-                                    </select>    
-                                    <div class="help-block"></div>
+                                    <input class="form-control col-md-7 col-xs-12" name="last_name" type="text" value="<?= $student_info->last_name ?>" />
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -44,8 +37,8 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="gender" class="form-control col-md-7 col-xs-12">
                                         <option value="">select gender</option>
-                                        <option value="male"  <?php if($student_info->gender == 'male') echo 'selected' ;?>>male</option>
-                                        <option value="female"  <?php if($student_info->gender == 'female') echo 'selected' ;?>>female</option>
+                                        <option value="male"  <?php if($student_info->gender == 'male') echo 'selected' ;?>><?= get_phrase('male');?></option>
+                                        <option value="female"  <?php if($student_info->gender == 'female') echo 'selected' ;?>><?= get_phrase('female');?></option>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>
@@ -80,63 +73,23 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('state');?></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="state" class="form-control col-md-7 col-xs-12 " type="text" value="<?= $student_info->state ?>"/>
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('country');?> </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="country" class="form-control col-md-7 col-xs-12">
-                                        <option value="">select country</option>
-                                        <option value="india"  <?php if($student_info->country == 'india') echo 'selected' ;?>>india</option>
-                                        <option value="USA"  <?php if($student_info->country == 'USA') echo 'selected' ;?>>USA</option>
-                                    </select>    
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('class');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="class" class="form-control col-md-7 col-xs-12">
-                                        <option value="">Select Class</option>
-                                        <option value="One" <?php if($student_info->class == 'One') echo 'selected' ;?>>One</option>
-                                        <option value="Two" <?php if($student_info->class == 'Two') echo 'selected' ;?>>Two</option>
-                                        <option value="three" <?php if($student_info->class == 'Thgree') echo 'selected' ;?>>Three</option>
-                                        <option value="Four" <?php if($student_info->class == 'Four') echo 'selected' ;?>>Four</option>
-                                        <option value="Five" <?php if($student_info->class == 'Five') echo 'selected' ;?>>Five</option>
-                                    </select>    
-                                    <div class="help-block"></div>
+                                    <select name="class" class="form-control col-md-7 col-xs-12" onchange="get_section_by_class(this.value,'','')">
+                                        <option value=""><?= get_phrase('choose_class');?></option>
+                                        <?php foreach($classList as $class){?>
+                                        <option value="<?= $class->id;?>" <?php if($student_info->class==$class->id) echo 'selected';?>><?= $class->class;?></option>
+                                        <?php } ?>
+                                    </select>  
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('section');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="section" class="form-control col-md-7 col-xs-12">
-                                        <option value="">Select section</option>
-                                        <option value="A" <?php if($student_info->section == 'A') echo 'selected' ;?>>A</option>
-                                        <option value="B" <?php if($student_info->section == 'B') echo 'selected' ;?>>B</option>
+                                    <select name="section" class="form-control col-md-7 col-xs-12" id="section_id">
+                                        <option value=""><?= get_phrase('choose_section');?></option>
+                                        
                                     </select>    
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('group');?> </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="group" class="form-control col-md-7 col-xs-12">
-                                        <option value="science" <?php if($student_info->group == 'science') echo 'selected' ;?>>science</option>
-                                        <option value="arts" <?php if($student_info->group == 'arts') echo 'selected' ;?>>arts</option>
-                                        <option value="commerce" <?php if($student_info->group == 'commerce') echo 'selected' ;?>>commerce</option>
-                                    </select>    
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('register no');?> <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="register_no" class="form-control col-md-7 col-xs-12" type="text" value="<?= $student_info->register_no ?>"/>
                                     <div class="help-block"></div>
                                 </div>
                             </div>
@@ -144,20 +97,6 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('roll');?> <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="roll" class="form-control col-md-7 col-xs-12" type="text" value="<?= $student_info->roll ?>"/>
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('extra curricular activities');?></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="curricular" class="form-control col-md-7 col-xs-12 " type="text" value="<?= $student_info->curricular ?>"/>
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('remarks');?></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="remarks" class="form-control col-md-7 col-xs-12 " type="text" value="<?= $student_info->remarks ?>"/>
                                     <div class="help-block"></div>
                                 </div>
                             </div>
@@ -175,8 +114,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <a href="<?= base_url('teacher');?>" class="btn btn-primary">Cancel</a>
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <a href="<?= base_url('teacher');?>" class="btn btn-primary"><?= get_phrase('cancel');?></a>
+                                    <button type="submit" class="btn btn-success"><?= get_phrase('save');?></button>
                                 </div>
                             </div>
                         </form>
@@ -212,7 +151,7 @@
                         window.location.reload();
                     },1000);
                 }else if(getRes.status=='false'){
-                    toastr.error(getRes.message);
+                    toastr.warning(getRes.message);
                 }else if(getRes.status=='error'){
                     var message = "";
                     $.each(getRes.message, function (index, value) {
@@ -224,4 +163,24 @@
             }
         });
     })
+    <?php if(!empty($student_info->class)){?>
+    get_section_by_class(<?= $student_info->class;?>,<?= $student_info->section;?>);
+    <?php } ?>
+    function get_section_by_class(class_id,section_id){
+        get_section(class_id,section_id);
+    }
+
+    function get_section(class_id,section_id){
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo base_url('ajax/get_section_by_class'); ?>",
+            data   : {class_id : class_id,section_id:section_id},  
+            success: function(response){                                                   
+                if(response)
+                {
+                    $('#section_id').html(response);
+                }
+            }
+       });
+    }
 </script>

@@ -134,5 +134,5 @@ $autoload['language'] = array('sms');
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('common_model');
+$autoload['model'] = array('Common_Model');
 

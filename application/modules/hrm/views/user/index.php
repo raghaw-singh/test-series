@@ -18,6 +18,7 @@
                             <th><?= get_phrase('name'); ?></th>
                             <th><?= get_phrase('phone'); ?></th>
                             <th><?= get_phrase('email'); ?></th>
+                            <th><?= get_phrase('is_view_on_web'); ?></th>
                             <th><?= get_phrase('action'); ?></th>                                            
                         </tr>
                     </thead>
@@ -45,6 +46,12 @@
                                     <?php if($obj->name){?>
                                     <b><?= ucfirst($obj->name).'<br>'; ?></b>
                                     <?php }?>
+                                    <?php if($obj->student_name){?>
+                                    <b><?= ucfirst($obj->student_name).'<br>'; ?></b>
+                                    <?php } ?>
+                                    <?php if($obj->teacher_name){?>
+                                    <b><?= ucfirst($obj->teacher_name).'<br>'; ?></b>
+                                    <?php } ?>
                                     <?php 
                                     $roles =  $this->user_model->get_single('roles',array('id'=>$obj->role_id));
                                     echo $roles->name;
@@ -52,6 +59,13 @@
                                 </td>
                                 <td><?= $obj->phone; ?></td>
                                 <td><?= $obj->email; ?></td>
+                                <td>
+                                    <?php if($obj->role_id==3){?>
+                                    <?= $obj->is_show_web ? get_phrase('yes') : get_phrase('no'); ?>
+                                    <?php } elseif($obj->role_id==1 || $obj->role_id==2){?>
+                                    <?= $obj->is_view_on_web ? get_phrase('yes') : get_phrase('no'); ?>
+                                    <?php } ?>
+                                </td>
                                 <td>
                                     <?php if(has_permission(VIEW, 'hrm', 'users')){ ?>
                                         <a  onclick="get_employee_modal(<?= $obj->id; ?>);"  data-toggle="modal" data-target=".bs-employee-modal-lg"  class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?= get_phrase('view'); ?> </a>

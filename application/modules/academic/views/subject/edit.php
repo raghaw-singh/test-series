@@ -18,7 +18,7 @@
                                     <select name="class" class="form-control col-md-7 col-xs-12">
                                         <option value="">select</option>
                                         <?php foreach ($class_info as $obj) { ?>
-                                        <option value="<?= $obj->class ?>"> <?= $obj->class?></option>
+                                        <option value="<?= $obj->id;?>" <?php if($subject_info->class==$obj->id) echo 'selected'?>> <?= $obj->class?></option>
                                         <?php } ?>
                                     </select>    
                                     <div class="help-block"></div>
@@ -29,8 +29,8 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="teacher_name" class="form-control col-md-7 col-xs-12">
                                         <option value="">select</option>
-                                        <?php foreach ($teachers_info as $obj) { ?>
-                                        <option value="<?= $obj->name ?>"> <?= $obj->name ?></option>
+                                        <?php foreach ($teachers_info as $teacher) { ?>
+                                        <option value="<?= $teacher->user_id ?>" <?php if($subject_info->teacher_name==$teacher->user_id) echo 'selected';?>> <?= $teacher->name ?></option>
                                         <?php } ?>
                                     </select>    
                                     <div class="help-block"></div>
@@ -41,8 +41,8 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="type" class="form-control col-md-7 col-xs-12">
                                         <option value="">select</option>
-                                        <option value="optional">Optional</option>
-                                        <option value="mandatory">Mandatory</option>
+                                        <option value="optional" <?php if($subject_info->type=='optional') echo 'selected'?>><?= get_phrase('Optional');?></option>
+                                        <option value="mandatory" <?php if($subject_info->type=='mandatory') echo 'selected'?>><?= get_phrase('mandatory');?></option>
                                     </select>    
                                     <div class="help-block"></div>
                                 </div>

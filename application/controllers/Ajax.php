@@ -70,40 +70,40 @@ class Ajax extends My_Controller {
         echo $str;
     }
 
-    function get_course_by_category(){
-        $category_id                        =   $this->input->post('category_id');
-        $course_id                          =   $this->input->post('course_id');
+    public function get_section_by_class() {
 
-        $str                            =   '';
-        $courseList                   =   $this->ajax->get_course_by_category($category_id);
+        $class_id = $this->input->post('class_id');
+        $section_id = $this->input->post('section_id');
+        
+        $sections = $this->ajax->get_list('section', array('class' => $class_id), '', '', '', 'id', 'ASC');
+        
+        $str = '<option value="">--' . get_phrase('choose_section') . '--</option>';
+        
         $select = 'selected="selected"';
-        if (!empty($courseList)) {
-            foreach ($courseList as $obj) {
-                $selected = $course_id == $obj->id ? $select : '';
-                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->title .'</option>';
+        if (!empty($sections)) {
+            foreach ($sections as $obj) {
+                $selected = $section_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->section . '</option>';
             }
         }
 
         echo $str;
     }
 
-    /**     * *************Function get_course_by_author**********************************
-     * @type            : Function
-     * @function name   : get_course_by_author
-     * @description     : this function used to fetch instructor course list  
-     * @param           : null 
-     * @return          : boolean true/false 
-     * ********************************************************** */
-    function get_course_by_author(){
-        $author_id                  =   $this->input->post('author_id');
-        $str                            =   '';
-        $str = '<option value="">--' . get_phrase('select') . '--</option>';
-        $courseList                   =   $this->ajax->get_course_by_author($author_id);
+
+    function get_subject_by_class(){
+        $class_id = $this->input->post('class_id');
+        $subject_id = $this->input->post('subject_id');
+        
+        $sections = $this->ajax->get_list('subject', array('class' => $class_id), '', '', '', 'id', 'ASC');
+        
+        $str = '<option value="">--' . get_phrase('choose_subject') . '--</option>';
+        
         $select = 'selected="selected"';
-        if (!empty($courseList)) {
-            foreach ($courseList as $obj) {
-               
-                $str .= '<option value="' . $obj->id . '">' . $obj->title .'</option>';
+        if (!empty($sections)) {
+            foreach ($sections as $obj) {
+                $selected = $subject_id == $obj->id ? $select : '';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->subject_name . '</option>';
             }
         }
 

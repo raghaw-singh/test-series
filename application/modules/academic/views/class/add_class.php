@@ -25,7 +25,7 @@
                                     <select name="teacher_name" class="form-control col-md-7 col-xs-12">
                                         <option value="">select teacher</option>
                                         <?php foreach ($teachers_info as $obj) { ?>
-                                        <option value="<?= $obj->name ?>"> <?= $obj->name ?></option>
+                                        <option value="<?= $obj->user_id;?>"> <?= $obj->name ?></option>
                                         <?php } ?>
                                     </select>    
                                     <div class="help-block"></div>

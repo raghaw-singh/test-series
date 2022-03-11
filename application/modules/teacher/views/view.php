@@ -15,7 +15,7 @@
                         <tbody>
                             <tr>
                                 <td><strong>Teacher Name</strong></td>
-                                <td class="mailbox-name"><?= $teacher_info->name ; ?></td>
+                                <td class="mailbox-name"><?= $teacher_data->first_name.' '.$teacher_data->last_name ; ?></td>
                             </tr>
                             <tr>
                                 <td><strong>date of Birth</strong></td>

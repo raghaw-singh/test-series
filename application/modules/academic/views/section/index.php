@@ -12,25 +12,28 @@
                     <thead>
                         <tr>
                             <th><?= get_phrase('sr_no') ?></th>
+                            <th><?= get_phrase('class') ?></th>
                             <th><?= get_phrase('section') ?></th>
-                            <th><?= get_phrase('category') ?></th>
-                            <th><?= get_phrase('capacity') ?></th>
                             <th><?= get_phrase('teacher_name') ?></th>
                             <th><?= get_phrase('action') ?></th>
                         </tr>
                     </thead>
-                    <?php $count=1; foreach ($sectionData as  $student_info) {  ?>
+                    <?php $count=1; foreach ($sectionData as  $obj) {  ?>
                     <tbody>
                         <tr>
                             <td><?= $count ;?></td>
-                            <td><?= $student_info->section; ?></td>
-                            <td><?= $student_info->category; ?></td>
-                            <td><?= $student_info->capacity; ?></td>
-                            <td><?= $student_info->teacher_name; ?></td>
+                            <td><?= $this->db->get_where('class',array('id'=>$obj->class))->row()->class;?></td>
+                            <td><?= $obj->section; ?></td>
+                            <td><?php 
+                            if(!empty($obj->teacher_name)){
+                            $teacher_info   =    $this->db->get_where('users',array('id'=> $obj->teacher_name))->row();
+                            echo $teacher_info->first_name.' '.$teacher_info->last_name;
+                            }
+                            ?></td>
                             <td>
-                                <a href="<?= base_url('academic/section/edit/'.$student_info->id) ;?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="<?= base_url('academic/section/edit/'.$obj->id) ;?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
 
-                                <a href="<?= base_url('academic/section/delete/'.$student_info->id) ;?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
+                                <a href="<?= base_url('academic/section/delete/'.$obj->id) ;?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     </tbody><?php $count ++ ;  }   ?> 

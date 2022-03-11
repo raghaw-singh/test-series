@@ -43,9 +43,9 @@ class Add_Question_Model extends MY_Model {
         
         // Custom search filter 
         $level           = $postData['ques_level'];
-        $group           = $postData['ques_group'];
+        $class_id           = $postData['class_id'];
         $exam_id         = $postData['exam_id'];
-        
+        $subject_id         =   $postData['subject_id'];
         
         ## Total number of records without filtering
         $this->db->select('count(*) as allcount');
@@ -57,8 +57,11 @@ class Add_Question_Model extends MY_Model {
         if(!empty($level)){
             $this->db->where('difficult_level', $level);
         }
-        if(!empty($group)){
-            $this->db->where('question_group', $group);
+        if(!empty($class_id)){
+            $this->db->where('class_id', $class_id);
+        }
+        if(!empty($subject_id)){
+            $this->db->where('subject_id',$subject_id);
         }
         $records               = $this->db->get('question_bank')->result();
         $totalRecordwithFilter = $records[0]->allcount;
@@ -68,8 +71,11 @@ class Add_Question_Model extends MY_Model {
         if(!empty($level)){
             $this->db->where('difficult_level', $level);
         }
-        if(!empty($group)){
-            $this->db->where('question_group', $group);
+        if(!empty($class_id)){
+            $this->db->where('class_id', $class_id);
+        }
+        if(!empty($subject_id)){
+            $this->db->where('subject_id',$subject_id);
         }
         $this->db->order_by('id','desc');
         $this->db->limit($rowperpage, $start);
@@ -84,12 +90,12 @@ class Add_Question_Model extends MY_Model {
                 }else{
                     $button_view  = "<a href='javascript:;' id='btn_read_".$record->id."' onclick='assign_ques(".$record->id.")' class='btn btn-info btn-xs add-tooltip' data-toggle='tooltip' data-placement='top' title='assign'><i class='fa fa-plus'></i></a>";     
                 }
-                
+            $class_name     =   $this->db->get_where('class',array('id'=>$record->class_id))->row()->class;
             $data[] = array(
                 "count"=>$count,
                 "level" => $record->difficult_level,
                 "question" => $record->question,
-                "group" => $record->question_group,
+                "class_name" => $class_name,
                 "action" => $button_view,
             );
             $count++;

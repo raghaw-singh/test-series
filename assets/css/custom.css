@@ -673,3 +673,50 @@ body[data-layout=detached] {
 div#card-body {
     padding: 15px 15px;
 }
+
+.bg-maroon-light {
+    background-color: #C24984 !important;
+    color: #fff !important;
+}
+.profile-db-head {
+    background: #009688;
+    color: #fff;
+    text-align: center;
+    font-style: italic;
+    padding: 5px;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+}
+.profile-db-head a {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 5px solid rgba(256,256,256,0.3);
+    display: inline-block;
+}
+.profile-db-head h1 {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+.profile-db-head p {
+    font-size: 12px;
+}
+.panel > .table > tbody > tr {
+    border-top: 1px solid #EEEEEE;
+    height: 45px;
+}
+.panel>.table>tbody:first-child th, .panel>.table>tbody:first-child td {
+    border-top: 0;
+}
+
+.panel > .table > tbody > tr > td {
+    line-height: 22px;
+}
+.profile-db-head a img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}

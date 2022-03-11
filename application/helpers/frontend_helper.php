@@ -40,6 +40,57 @@ if (!function_exists('logged_in_s_role_id')) {
         return $logged_in_s_role_id;
     }
 }
+function getExamQuestion($exam_id){
+    $CI =& get_instance();
+    $CI->db->select('OE.*,AQ.question_id,QB.class_id,QB.subject_id,QB.question,QB.upload,QB.mark,QB.question_type,QB.total_option');
+    $CI->db->from('online_exam as OE');
+    $CI->db->where('OE.id',$exam_id);
+    $CI->db->join('assign_question as AQ','AQ.exam_id=OE.id','left');
+    $CI->db->join('question_bank as QB','QB.id=AQ.question_id','left');
+    $query = $CI->db->get();
+    $result =  $query->result();
+    return $result;
+}
+function getSubjectByExamBYadmin($exam_id){
+    $CI =& get_instance();
+    $CI->db->distinct();
+    $CI->db->select('subject_id');
+    $CI->db->from('create_exam');
+    $CI->db->where('exam_id',$exam_id);
+    $query = $CI->db->get();
+    $result =  $query->result();
+    return $result;
+}
+function getSubject($subject_id){
+    $CI =& get_instance();
+    $CI->db->where('id',$subject_id);
+    $query = $CI->db->get('subject');
+    $result =  $query->result();
+    return $result;
+}
+if (!function_exists('numberofQuestions')){
+    function numberofQuestions($exam_id){        
+        $CI =& get_instance();      
+        $CI->db->where('exam_id',$exam_id);
+        $query = $CI->db->get('assign_question');
+        if($query->num_rows() > 0){
+            return $query->num_rows();
+        }else{
+            return 0;
+        }
+    }
+}
+function examTotalMarks($exam_id){
+    $CI   =   & get_instance();
+    $CI->db->select_sum('QB.mark');
+    $CI->db->from('online_exam as OE');
+    $CI->db->where('OE.id',$exam_id);
+    $CI->db->join('assign_question as AQ','AQ.exam_id=OE.id','left');
+    $CI->db->join('question_bank as QB','QB.id=AQ.question_id','left');
+    $result     =   $CI->db->get()->row();
+    return $result->mark;
+
+}
 if(!function_exists('checkRightAnswer')){
     function checkRightAnswer($id,$quiz_id,$correct_answers){
         $CI = & get_instance();

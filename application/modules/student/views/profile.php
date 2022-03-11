@@ -23,7 +23,7 @@
                                 <td>
                                     <strong><?= get_phrase('student_name'); ?></strong>
                                 </td>
-                                <td class="mailbox-name"><?= $studentData->first_name ;?></td>
+                                <td class="mailbox-name"><?= $studentData->first_name.' '.$studentData->last_name ;?></td>
                             </tr>
                             <tr>
                                 <td>
@@ -53,13 +53,13 @@
                                 <td>
                                     <strong><?= get_phrase('class'); ?></strong>
                                 </td>
-                                <td class="mailbox-name"><?= $studentData->class ;?></td>
+                                <td class="mailbox-name"><?= $this->db->get_where('class',array('id'=>$studentData->class))->row()->class ;?></td>
                             </tr>
                             <tr>
                                 <td>
                                     <strong><?= get_phrase('section'); ?></strong>
                                 </td>
-                                <td class="mailbox-name"><?= $studentData->section ;?></td>
+                                <td class="mailbox-name"><?= $this->db->get_where('section',array('id'=>$studentData->section))->row()->section ;?></td>
                             </tr>
                             <tr>
                                 <td>

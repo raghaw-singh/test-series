@@ -17,16 +17,21 @@
                             <th><?= get_phrase('action') ?></th>
                         </tr>
                     </thead>
-                    <?php $count=1; foreach ($classData as  $student_info) {  ?>
+                    <?php $count=1; foreach ($classData as  $obj) {  ?>
                     <tbody>
                         <tr>
                             <td><?= $count ;?></td>
-                            <td><?= $student_info->class; ?></td>
-                            <td><?= $student_info->teacher_name; ?></td>
+                            <td><?= $obj->class; ?></td>
+                            <td><?php 
+                            if(!empty($obj->teacher_name)){
+                            $teacher_info           =   $this->db->get_where('users',array('id'=>$obj->teacher_name))->row();
+                            echo $teacher_info->first_name.' '.$teacher_info->last_name;
+                            }
+                            ?></td>
                             <td>
-                                <a href="<?= base_url('academic/student_class/edit/'.$student_info->id) ;?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="<?= base_url('academic/student_class/edit/'.$obj->id) ;?>" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</a>
 
-                                <a href="<?= base_url('academic/student_class/delete/'.$student_info->id) ;?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
+                                <a href="<?= base_url('academic/student_class/delete/'.$obj->id) ;?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                     </tbody><?php $count ++ ;  }   ?>

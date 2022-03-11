@@ -13,15 +13,26 @@
             	<form method="post" class="form-horizontal" onsubmit="return false" id="add_question_form" autocomplete="off">
             		<div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
-                            <?= get_phrase('question_group');?>
+                            <?= get_phrase('class');?>
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="question_group" class="form-control select2">
-                                <option value="">Select</option>
-                                <?php foreach($questionGroup as $group) { ?>
-                                <option value="<?= $group->title ;?>"><?= $group->title ;?></option>
+                            <select name="class_id" class="form-control" onclick="get_subject_by_class(this.value,'','')">
+                                <option value=""><?= get_phrase('choose_class');?></option>
+                                <?php foreach($class_list as $class) { ?>
+                                <option value="<?= $class->id ;?>"><?= $class->class ;?></option>
                                 <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                            <?= get_phrase('subject');?>
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="subject_id" class="form-control select2" id="subject_id">
+                                <option value=""><?= get_phrase('choose_subject');?></option>
                             </select>
                         </div>
                     </div>
@@ -29,7 +40,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('difficult_level');?></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select name="difficult_level" class="form-control select2">
-                                <option value="">Select</option>
+                                <option value=""><?= get_phrase('choose_difficult_level');?></option>
                                 <option value="easy">easy</option>
                                 <option value="medium">medium</option>
                                 <option value="hard">hard</option>
@@ -85,7 +96,7 @@
                     <div class="row form-group has-error" id="totalOptionDiv">
 					    <label class="col-sm-3 control-label"> Total Option <span class="text-danger">*</span> </label>
 					    <div class="col-sm-6">
-					        <select name="totalOption" id="totalOption" class="form-control select2">
+					        <select name="totalOption" id="totalOption" class="form-control">
 					            <option value="0" selected="selected">Please Select</option>
 					            <option value="1">1</option>
 					            <option value="2">2</option>
@@ -117,7 +128,24 @@ $('#question').jqte();
 $(function () {
     $("#totalOptionDiv").hide();
 });
+function get_subject_by_class(class_id){
+    get_subject(class_id);
+}
 
+function get_subject(class_id){
+    $.ajax({       
+        type   : "POST",
+        url    : "<?php echo base_url('ajax/get_subject_by_class'); ?>",
+        data   : {class_id : class_id},  
+        success: function(response){                                                   
+            if(response)
+            {
+                $('#subject_id').html(response);
+                $('.select2').select2();
+            }
+        }
+    });
+}
 $(document).ready(function () {
     var totalOptionID = "0";
     if (totalOptionID > 0) {

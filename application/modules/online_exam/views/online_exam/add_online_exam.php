@@ -16,50 +16,34 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input class="form-control col-md-7 col-xs-12" name="exam_title" type="text" />
                                     <span class="text-danger"><?= form_error('name'); ?></span>
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('description');?> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input class="form-control col-md-7 col-xs-12" type="text" name="description" />
-                                    <div class="help-block"></div>
+                                    <textarea class="form-control" name="description" rows="6"></textarea>
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('class');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="class" class="form-control col-md-7 col-xs-12">
-                                        <option value="">Select Class</option>
+                                    <select name="class" class="form-control col-md-7 col-xs-12" onchange="get_section_by_class(this.value,'','')">
+                                        <option value=""><?= get_phrase('choose_class');?></option>
                                         <?php foreach($classData as $obj){ ?>
-                                        <option value="<?= $obj->class ?>"><?= $obj->class ?></option>
+                                        <option value="<?= $obj->id;?>"><?= $obj->class ?></option>
                                         <?php }?>
                                     </select>    
-                                    <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('section');?></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="section" class="form-control col-md-7 col-xs-12">
-                                        <option value="">Select Section</option>
-                                        <?php foreach($sectionData as $obj){ ?>
-                                        <option value="<?= $obj->section ?>"><?= $obj->section ?></option>
-                                        <?php }?>
+                                    <select name="section" class="form-control col-md-7 col-xs-12" id="section_id">
+                                        <option value=""><?= get_phrase('choose_section');?></option>
+                                        
                                     </select>    
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('student_group');?> </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="student_group" class="form-control col-md-7 col-xs-12">
-                                    	<option>Select Group</option>
-                                        <?php foreach($groupData as $obj){ ?>
-                                        <option value="<?= $obj->title ?>"><?= $obj->title ?></option>
-                                        <?php }?>
-                                    </select>    
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -67,11 +51,11 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="subject" class="form-control col-md-7 col-xs-12">
                                     	<option>Select Subject</option>
-                                        <?php foreach($subjectData as $obj){ ?>
-                                        <option value="<?= $obj->subject_name ?>"><?= $obj->subject_name ?></option>
+                                        <?php foreach($subjectData as $sub){ ?>
+                                        <option value="<?= $sub->id;?>"><?= $sub->subject_name ?></option>
                                         <?php }?>
                                     </select>    
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -79,40 +63,40 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="random_question" class="form-control col-md-7 col-xs-12">
                                     	<option>Select</option>
-                                        <option value="yes">yes</option>
-                                        <option value="no">no</option>
+                                        <option value="yes"><?= get_phrase('yes');?></option>
+                                        <option value="no"><?= get_phrase('no');?></option>
                                     </select>    
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('duration');?> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input class="form-control col-md-7 col-xs-12" type="text" name="duration" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('pass_value');?><span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input class="form-control col-md-7 col-xs-12" type="text" name="pass_value" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('published');?><span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="published" class="form-control col-md-7 col-xs-12">
-                                    	<option value="">Select</option>
-                                        <option value="yes">yes</option>
-                                        <option value="no">no</option>
+                                    	<option value=""><?= get_phrase('choose');?></option>
+                                        <option value="yes"><?= get_phrase('yes');?></option>
+                                        <option value="no"><?= get_phrase('no');?></option>
                                     </select>    
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="submit" class="btn btn-success"><?= get_phrase('save');?></button>
                                 </div>
                             </div>
                         </form>
@@ -157,4 +141,21 @@
             }
         });
     })
+    function get_section_by_class(class_id){
+        get_section(class_id);
+    }
+
+    function get_section(class_id){
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo base_url('ajax/get_section_by_class'); ?>",
+            data   : {class_id : class_id},  
+            success: function(response){                                                   
+                if(response)
+                {
+                    $('#section_id').html(response);
+                }
+            }
+       });
+    }
 </script>

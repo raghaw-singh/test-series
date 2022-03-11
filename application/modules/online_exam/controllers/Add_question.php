@@ -16,6 +16,7 @@ class Add_question extends MY_Controller {
         $this->data['exam_details']    =   $this->add_question_model->getExamById($id);
         $this->data['questionBank']    =   $this->add_question_model->getQuestionBank($id);
         $this->data['assigned_ques']   =   $this->add_question_model->getAssignQues($id);
+        $this->data['class_list']     =   $this->db->get('class')->result();
         $this->layout->title(get_phrase('add_question'));
         $this->layout->view('online_exam/add_question/index',$this->data);
     }

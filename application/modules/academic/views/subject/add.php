@@ -17,7 +17,7 @@
                                     <select name="class" class="form-control col-md-7 col-xs-12">
                                         <option value="">select</option>
                                         <?php foreach ($class_info as $obj) { ?>
-                                        <option value="<?= $obj->class ?>"> <?= $obj->class?></option>
+                                        <option value="<?= $obj->id;?>"> <?= $obj->class?></option>
                                         <?php } ?>
                                     </select>    
                                     <div class="help-block"></div>
@@ -29,7 +29,7 @@
                                     <select name="teacher_name" class="form-control col-md-7 col-xs-12">
                                         <option value="">select</option>
                                         <?php foreach ($teachers_info as $obj) { ?>
-                                        <option value="<?= $obj->name ?>"> <?= $obj->name ?></option>
+                                        <option value="<?= $obj->user_id ?>"> <?= $obj->name ?></option>
                                         <?php } ?>
                                     </select>    
                                     <div class="help-block"></div>
@@ -77,8 +77,8 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <a href="<?= base_url('teacher');?>" class="btn btn-primary">Cancel</a>
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <a href="<?= base_url('teacher');?>" class="btn btn-primary"><?= get_phrase('cancel');?></a>
+                                    <button type="submit" class="btn btn-success"><?= get_phrase('save');?></button>
                                 </div>
                             </div>
                         </form>
@@ -110,7 +110,7 @@
                         window.location.reload();
                     },1000);
                 }else if(getRes.status=='false'){
-                    toastr.error(getRes.message);
+                    toastr.warning(getRes.message);
                 }else if(getRes.status=='error'){
                     var message = "";
                     $.each(getRes.message, function (index, value) {

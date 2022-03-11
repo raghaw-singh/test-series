@@ -6,18 +6,32 @@
             </div>
             <div class="box-body">
               <form method="post" class="form-horizontal" onsubmit="return false" id="add_question_form" autocomplete="off">
-                  <input type="hidden" name="id" value="<?= $question_bank_info->id; ?>">
-                <div class="item form-group">
-                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> <?= get_phrase('question_group');?><span class="required">*</span></label>
-                      <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select name="question_group" class="form-control select2">
-                              <option value="">Select</option>
-                              <?php foreach($questionGroup as $group) { ?>
-                              <option value="<?= $group->title ;?>" <?php if($question_bank_info->question_group == $group->title) echo 'selected'; ?> ><?= $group->title ;?></option>
-                              <?php } ?>
-                          </select>
-                      </div>
-                  </div>
+                    <input type="hidden" name="id" value="<?= $question_bank_info->id; ?>">
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                            <?= get_phrase('class');?>
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="class_id" class="form-control" onclick="get_subject_by_class(this.value,'','')">
+                                <option value=""><?= get_phrase('choose_class');?></option>
+                                <?php foreach($class_list as $class) { ?>
+                                <option value="<?= $class->id ;?>" <?php if($question_bank_info->class_id==$class->id) echo 'selected';?>><?= $class->class ;?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
+                            <?= get_phrase('subject');?>
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select name="subject_id" class="form-control select2" id="subject_id">
+                                <option value=""><?= get_phrase('choose_subject');?></option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('difficult_level');?></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -39,17 +53,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                <label for="photo" class="col-sm-3 control-label"> <?= get_phrase('upload');?> </label>
-              <div class="col-sm-4">
-                  <input class="form-control question_image" placeholder="Select Image" type="file" onchange="return uploadImage()">
-                  <input type="hidden" name="imagename" class="imagename">
-                  <div class="progress" id="progress_bar_upload" style="display: none;">
+                        <label for="photo" class="col-sm-3 control-label"> <?= get_phrase('upload');?> </label>
+                        <div class="col-sm-4">
+                            <input class="form-control question_image" placeholder="Select Image" type="file" onchange="return uploadImage()">
+                            <input type="hidden" name="imagename" class="imagename">
+                            <div class="progress" id="progress_bar_upload" style="display: none;">
                                 <div id="file-progress-bar" class="progress-bar"></div>
                             </div>
-                </div>
-              <div class="col-sm-4" id="uploaded_image"> </div>
-            </div>
-            <div class="item form-group">
+                        </div>
+                      <div class="col-sm-4" id="uploaded_image"> </div>
+                    </div>
+                    <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">
                             <?= get_phrase('mark');?> <span class="required">*</span>
                         </label>
@@ -74,17 +88,17 @@
                         </div>
                     </div>
                     <div class="row form-group has-error" id="totalOptionDiv">
-                <label class="col-sm-3 control-label"> Total Option <span class="text-danger">*</span> </label>
-                <div class="col-sm-6">
-                    <select name="totalOption" id="totalOption" class="form-control select2">
-                        <option value="0" selected="selected">Please Select</option>
-                        <option value="1" <?php if($question_bank_info->total_option == '1') echo 'selected'; ?> >1</option>
-                        <option value="2" <?php if($question_bank_info->total_option == '2') echo 'selected'; ?> >2</option>
-                        <option value="3" <?php if($question_bank_info->total_option == '3') echo 'selected'; ?> >3</option>
-                        <option value="4" <?php if($question_bank_info->total_option == '4') echo 'selected'; ?> >4</option>
-                    </select>
-                </div>
-            </div>
+                        <label class="col-sm-3 control-label"> Total Option <span class="text-danger">*</span> </label>
+                        <div class="col-sm-6">
+                            <select name="totalOption" id="totalOption" class="form-control">
+                                <option value="0" selected="selected">Please Select</option>
+                                <option value="1" <?php if($question_bank_info->total_option == '1') echo 'selected'; ?> >1</option>
+                                <option value="2" <?php if($question_bank_info->total_option == '2') echo 'selected'; ?> >2</option>
+                                <option value="3" <?php if($question_bank_info->total_option == '3') echo 'selected'; ?> >3</option>
+                                <option value="4" <?php if($question_bank_info->total_option == '4') echo 'selected'; ?> >4</option>
+                            </select>
+                        </div>
+                    </div>
                     <input type="hidden" id="total_no_of_options" value="<?= $question_bank_info->total_option;?>">
                     <div class="old_option_data">
                         <?php 
@@ -103,11 +117,13 @@
                             <div class="col-sm-4" style="display: inline-table;">
                                 <input type="text" class="form-control" id="option<?= $i;?>" name="option[]" value="<?= $obj->options;?>" placeholder="Option <?= $i;?>" />
                                 <span class="input-group-addon" id="append_<?= $i;?>"> 
-                                    <input type="hidden" name="opt_answer[]" id="ans_<?= $i;?>" value="0" <?php if($obj->answers ==0) echo 'disabled';?>> 
+                                    <input type="hidden" name="opt_answer[]" id="ans_<?= $i;?>" value="0" <?php if($obj->answers !=0) echo 'disabled';?>> 
                                     <input class="answer" id="ans<?= $i;?>" type="<?= $question_type;?>" name="opt_answer[]" value="<?= $i;?>" data-toggle="tooltip" data-placement="top" title="Correct Answer" <?php if($obj->answers==$i)echo 'checked';?> />
                                 </span>
                             </div>
-                            <div class="col-sm-3" style="display: inline-table;"><input type="file" name="image1" class="uploadImage<?= $i;?>" id="image<?= $i;?>" onchange="upload_option_image(1)" /> <input type="hidden" name="image_ajax[]" id="image_ajax_image<?= $i;?>" /></div>
+                            <div class="col-sm-3" style="display: inline-table;">
+                                <input type="file" name="image1" class="uploadImage<?= $i;?>" id="image<?= $i;?>" onchange="upload_option_image(1)" /> 
+                                <input type="hidden" name="image_ajax[]" id="image_ajax_image<?= $i;?>" /></div>
                         </div>
                         <?php $i++;} ?>
                     </div>
@@ -132,24 +148,50 @@
 <script type="text/javascript" src="<?= VENDOR_URL;?>editor/js/jquery-te-1.4.0.min.js"></script>
 
 <script type="text/javascript">
+    <?php if(!empty($question_bank_info->class_id)){?>
+    get_subject_by_class(<?= $question_bank_info->class_id;?>,<?= $question_bank_info->subject_id;?>);
+    <?php } ?>
+    function get_subject_by_class(class_id,subject_id){
+        get_subject(class_id,subject_id);
+    }
+
+    function get_subject(class_id,subject_id){
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo base_url('ajax/get_subject_by_class'); ?>",
+            data   : {class_id : class_id,subject_id:subject_id},  
+            success: function(response){                                                   
+                if(response)
+                {
+                    $('#subject_id').html(response);
+                    $('.select2').select2();
+                }
+            }
+        });
+    }
     $('.select2').select2();
     $('#question').jqte();
-    function checkedAnswer(ans_value){
-        /*var check_answer        =   $('.answer');
-
-        if (check_answer.is(':checked')) {
-            $('#append_'+ans_value+'').html('');
-        }else{
-            $('#append_'+ans_value+'').prop('disabled',false);
-        }*/
-    }
     $(document).ready(function () {
         var totalOptionID = "0";
         if (totalOptionID > 0) {
             $("#totalOptionDiv").show();
         }
     });
+    jQuery('.answer').on('change', function(){
 
+    var check = jQuery(this).is(':checked');
+    var val = jQuery(this).val();
+
+    console.log(check);
+
+    if(check){
+       jQuery('#ans_'+val).prop('disabled', true);
+    }else{
+      jQuery('#ans_'+val).prop('disabled', false);
+    }
+
+
+    });
     $("#type").change(function () {
         $("#in").children().remove();
         var type = $(this).val();

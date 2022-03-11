@@ -1,5 +1,17 @@
+<!DOCTYPE html>
 
-    <title>exam</title>
+<html>
+
+<head>
+
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/exam/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/exam/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/exam/custom.css">
+    <script src="<?= VENDOR_URL;?>custom/jquery.min.js"></script>
+
+    <title><?php echo $instruction->exam_title;?></title>
 
     <style type="text/css">
         html,
@@ -23,31 +35,9 @@
     <div class="container-fluid">
 
         <div class="row bg-primary top nav-bar">
-
-            <div class="col-md-4 col-xs-4">
-
-                <!-- <p>Logo</p> -->
-
-                <img style="max-width: 75px;margin-top: -14px;position: absolute;" src="<?php echo base_url();?>uploads/logo/1.png">
-
+            <div class="col-md-12 text-center">
+                <span style="font-weight: bold;font-size:18px;color:#fff;"> <?php echo $instruction->exam_title;?></span>
             </div>
-
-            <div class="col-md-4 col-xs-4 text-center">
-
-                <!-- <span style="font-weight: bold;font-size:18px;">Exam Name</span>: --><span style="font-weight: bold;font-size:18px;color:#fff;"> <?php echo $instruction->exam_title;?></span>
-
-            </div>
-
-            <div class="col-md-4 col-xs-4 pull-right">
-
-                <div class="pull-right">
-
-                    <strong><?php echo $instruction->exam_title;?></strong>
-                    
-                </div>
-
-            </div>
-
         </div>
         <!-- row -->
         <style type="text/css">
@@ -74,37 +64,32 @@
                 <div class="panel-heading text-center">
                     <h4>Intructions</h4></div>
                 <?php $getExamQuestion  =   getExamQuestion($instruction->id);?>
-                <?php //_d($getExamQuestion);?>
                 <?php if(!empty($getExamQuestion)){foreach($getExamQuestion as $row){?>
-                <!-- <?php $getSubject       =   getSubject($row->subject_id);?> -->
-                
+                <?php $getSubject       =   getSubject($row->subject_id);?>
+                <?php } }?>
                 <?php //print_r($getSubject);?>
                 <div class="panel-body" style="height: 520px; overflow-y: scroll;">
-                	<?php _d($getExamQuestion);?>
+
                     <div class="col-md-4">
-                        <h3>Exam Duration :-<?php echo $row->duration;?> Minutes</h3>
+                        <h3>Exam Duration :-<?php echo $instruction->duration;?> Minutes</h3>
                     </div>
                     <div class="col-md-4">
-                        <h3>Number of Questions :-<?php echo $row->question;?></h3>
+                        <h3>Number of Questions :-<?php echo numberofQuestions($instruction->id);?></h3>
                     </div>
                     <div class="col-md-4">
-                        <h3>Total Marks :-<?php echo $row->subject;?></h3>
+                        <?php $examTotalMarks = examTotalMarks($instruction->id);?>
+                        <h3>Total Marks :-<?php echo $examTotalMarks;?></h3>
                     </div>
 
                     <div class="col-lg-12">
                         <div style="width: 100% !important;">
-                            <?php echo $instruction->subject;?>
+                            <?php //echo $instruction->exam_instruction;?>
                         </div>
                     </div>
-
-                    <address>&nbsp;</address>
-
-                    <address><span style="font-size:16px"><strong>Test By - <?php echo $instruction->subject;?></strong></span></address>
-
                     <!-- End Question List -->
 
                 </div>
-                <?php } }?>
+
                 <div class="panel-footer">
 
                     <div class="row">
@@ -143,7 +128,7 @@
         <input type="hidden" id="total_marks" name="total_marks" value="<?php echo examTotalMarks($instruction->id);?>">
         <input type="hidden" id="subject_id" name="subject_id" value="">
         <input type="hidden" id="ques_no" name="ques_no" value="">
-        <input type="hidden" id="remain_time" value="<?php echo $instruction->exam_duration;?>">
+        <input type="hidden" id="remain_time" value="<?php echo $instruction->duration;?>">
         <!-- Start Modal -->
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -152,7 +137,7 @@
                 <div class="modal-content">
                     <div class="modal-header alert alert-warning">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Question List</h4>
+                        <h4 class="modal-title"><?= get_phrase('question_list');?></h4>
                     </div>
                     <div class="modal-body" style="height: 420px; overflow-y: scroll;">
                         <table class="table">
@@ -184,7 +169,7 @@
                 <div class="modal-content">
                     <div class="modal-header alert alert-warning">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Exam Summary</h4>
+                        <h4 class="modal-title"><?= get_phrase('exam_summary');?></h4>
                     </div>
                     <div class="modal-body">
                         <table class="table table-bordered">
@@ -224,10 +209,9 @@
             <div class="row">
                 <div class="col-md-9 col-xs-12">
                     <div class="panel panel-primary">
-                        
-                        <!-- <?php $count=1; if(!empty($getSubject)){foreach($getSubject as $subj){?>
-                        <button class="btn <?php if($count=='1') { echo'btn-info'; }else{ echo 'btn-primary';}?> sub-btn subject" onclick="changeSubject(<?php echo $subj->id;?>)" rel="<?php echo $subj->id;?>"><?php echo $subj->name;?></button>
-                        <?php $count++; } } ?> -->
+                        <?php $count=1; if(!empty($getSubject)){foreach($getSubject as $subj){?>
+                        <button class="btn <?php if($count=='1') { echo'btn-info'; }else{ echo 'btn-primary';}?> sub-btn subject" onclick="changeSubject(<?php echo $subj->id;?>)" rel="<?php echo $subj->id;?>"><?php echo $subj->subject_name;?></button>
+                        <?php $count++; } } ?>
                     </div>
                 </div>
                 <div class="col-md-3 col-xs-12 pull-right">
@@ -260,7 +244,7 @@
                     <?php $formate = array();
                         if(!empty($getExamQuestion))
                         {
-                            if($getExamQuestion['0']->rand_ques == 'Yes')
+                            if($getExamQuestion['0']->random_question == 'Yes')
                             {
                                 $keys = array_keys($getExamQuestion);
                                 shuffle($keys);
@@ -287,32 +271,15 @@
                                 <p><strong><?php echo $obj->question;?></strong></p>
                             </p>
                             <input type="hidden" value="<?php echo $obj->question_id; ?>" id="questionid_<?php echo $counts; ?>">
-                            <?php if(!empty($obj->option_a)){?>
+                            <?php 
+                                $question_options   =   get_question_options($obj->question_id);
+                                //echo _d($question_options); die;
+                                if(!empty($question_options)){ foreach($question_options as $option){ ?>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="opt_<?php echo $obj->question_id;?>" value="<?php echo $obj->option_a;?>"> <?php echo $obj->option_a;?></label>
+                                    <input type="radio" name="opt_<?= $option->question_id;?>" value="<?= $option->id;?>"> <?= $option->options;?>
                             </div>
-                            <?php } if(!empty($obj->option_b)){?>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="opt_<?php echo $obj->question_id;?>" value="<?php echo $obj->option_b;?>"> <?php echo $obj->option_b;?> </label>
-                            </div>
-                            <?php } if(!empty($obj->option_c)){?>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="opt_<?php echo $obj->question_id;?>" value="<?php echo $obj->option_c;?>"> <?php echo $obj->option_c;?> </label>
-                            </div>
-                            <?php } if(!empty($obj->option_d)){?>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="opt_<?php echo $obj->question_id;?>" value="<?php echo $obj->option_d;?>"> <?php echo $obj->option_d;?></label>
-                            </div>
-                            <?php } if(!empty($obj->option_e)){?>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="opt_<?php echo $obj->question_id;?>" value="<?php echo $obj->option_e;?>"> <?php echo $obj->option_e;?></label>
-                            </div>
-                            <?php  } ?>
+                            <?php } }?>
                         </div>
                         <div class="panel-footer">
                             <button class="btn btn-info sub-btn" onclick="flagAndNext(<?php echo $obj->question_id;?>)">Flag and Next</button>
@@ -357,19 +324,14 @@
                 </select> -->
 
                         <h4>Legends:</h4>
-                        <img class="total_answer" src="<?php echo base_url();?>template/exam/img/ans.png"> Answered &nbsp; &nbsp; <img src="<?php echo base_url();?>template/exam/img/no-ans.png"> Not Answered
+                        <img class="total_answer" src="<?php echo base_url();?>assets/exam/img/ans.png"> Answered &nbsp; &nbsp; <img src="<?php echo base_url();?>assets/exam/img/no-ans.png"> Not Answered
                         <br>
-                        <img src="<?php echo base_url();?>template/exam/img/no_visit.png"> Not Visited &nbsp; &nbsp; <img src="<?php echo base_url();?>template/exam/img/mark_review.png"> Flag for Review
+                        <img src="<?php echo base_url();?>assets/exam/img/no_visit.png"> Not Visited &nbsp; &nbsp; <img src="<?php echo base_url();?>assets/exam/img/mark_review.png"> Flag for Review
                         <br>
                         <!-- <img src="https://aagebadho.in/dist/exam/css/img/ans_mark_review.png"> Answered &amp; Marked for Review<br> -->
                         <br>
-                        <button class="btn btn-primary hidden">Profile</button>
-                        <button class="btn btn-primary hidden">Instructions</button>
                         <button id="next" class="btn btn-primary hidden" style="width: 49%!important;">Next</button>
-                        <button class="btn btn-primary" style="width: 49%!important;" data-toggle="modal" data-target="#myModal">Question</button>
                         <button class="btn btn-success" style="width: 49%!important;" onclick="showExamSummary()">Submit</button>
-                        <!--<button id="prev" class="btn btn-info" style="width: 49%!important;">Prev</button>
-                <button class="btn btn-danger" style="width: 49%!important;" onclick="closeMe()">Exit</button> -->
                     </div>
                     <!-- well -->
 
@@ -412,7 +374,7 @@
             function startExam() {
                 var rdo = $('#agree:checked').val();
                 if (rdo) {
-                    //toggleFullScreen(document.body); // Full Screen
+                    toggleFullScreen(document.body); // Full Screen
                     $('.instructions').addClass('hidden');
                     $('.exam_section').removeClass('hidden');
                     startTimer(); // Timer Start
@@ -458,22 +420,12 @@
             })
         </script>
     </div>
-    <script type="text/javascript" src="<?php echo base_url('assets/exam/exam.js');?>"></script>
-    <!--
-    <script type="text/javascript">
-        $(function() {
-            //Copy, Paste
-            $('body').bind('copy paste', function(e) {
-                e.preventDefault();
-                return false;
-            });
-            $(this).bind("contextmenu", function(e) {
-                e.preventDefault();
-            });
-        })
+
+    <script type="text/javascript" src="<?php echo base_url();?>assets/exam/bootstrap.min.js"></script>
+    <script type="text/javascript"> 
+        var base_url        =   '<?php echo base_url();?>';
     </script>
-    <noscript>Your browser does not support JavaScript!</noscript>
-    -->
+    <script type="text/javascript" src="<?php echo base_url('assets/exam/exam.js');?>"></script>
 </body>
 
 </html>

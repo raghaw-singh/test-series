@@ -49,7 +49,6 @@ class Online_Exam extends MY_Controller {
             $save['pass_value']        =    $this->input->post('pass_value');
             $save['published']        =    $this->input->post('published');
             $save['section']         =    $this->input->post('section');
-            $save['student_group']         =    $this->input->post('student_group');
             $save['subject']         =    $this->input->post('subject');
             $save['random_question']         =    $this->input->post('random_question');
             $save['duration']         =    $this->input->post('duration');
@@ -76,17 +75,19 @@ class Online_Exam extends MY_Controller {
     }
 
     function update_exam(){
+        //print_r($_POST);die;
         $this->form_validation->set_rules('exam_title', get_phrase('exam_title'),'trim|required');
         $this->form_validation->set_rules('class', get_phrase('class'),'trim|required');
         $this->form_validation->set_rules('pass_value', get_phrase('pass_value'),'trim|required|numeric');
         $this->form_validation->set_rules('published', get_phrase('published'),'trim|required');
-
+        $this->form_validation->set_rules('duration',get_phrase('duration'),'trim|required|numeric');
         if($this->form_validation->run()== false){
             $error   =    array(
                 'exam_title'=>      form_error('exam_title'),
                 'pass_value'=>  form_error('pass_value'),
                 'published'=>      form_error('published'),
                 'class'=>      form_error('class'),
+                'duration'=>form_error('duration')
             );
             $arr     =    array('status'=>'error', 'message'=>$error);
             echo json_encode($arr);
@@ -100,7 +101,6 @@ class Online_Exam extends MY_Controller {
                 $save['pass_value']       =    $this->input->post('pass_value');
                 $save['published']        =    $this->input->post('published');
                 $save['section']          =    $this->input->post('section');
-                $save['student_group']    =    $this->input->post('student_group');
                 $save['subject']          =    $this->input->post('subject');
                 $save['random_question']  =    $this->input->post('random_question');
                 $save['duration']         =    $this->input->post('duration');
@@ -126,7 +126,4 @@ class Online_Exam extends MY_Controller {
 
         redirect(base_url('online_exam/online_exam'));
     }
-
-
-
 }

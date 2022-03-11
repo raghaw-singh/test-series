@@ -12,29 +12,22 @@
                     <div class="x_content">
                         <form method="post" id="student_form" autocomplete="off" class="form-horizontal form-label-left" onsubmit="return false" accept-charset="utf-8">
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('name');?> <span class="required">*</span> </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('first_name');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input class="form-control col-md-7 col-xs-12" name="name" type="text" />
-                                    <span class="text-danger"><?= form_error('name'); ?></span>
-                                    <div class="help-block"></div>
+                                    <input class="form-control col-md-7 col-xs-12" name="first_name" type="text" />
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('guardian');?> </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('last_name');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="guardian" class="form-control col-md-7 col-xs-12">
-                                        <option value="">select guardian</option>
-                                        <option value="John" >john</option>
-                                        <option value="smith">smith</option>
-                                    </select>    
-                                    <div class="help-block"></div>
+                                    <input class="form-control col-md-7 col-xs-12" name="last_name" type="text" />
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('date of birth');?> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input class="form-control col-md-7 col-xs-12" id="dob" type="text" name="date_of_birth" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -42,10 +35,10 @@
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <select name="gender" class="form-control col-md-7 col-xs-12">
                                         <option value="">select gender</option>
-                                        <option value="male">male</option>
-                                        <option value="female">female</option>
+                                        <option value="male"><?= get_phrase('male');?></option>
+                                        <option value="female"><?= get_phrase('female');?></option>
                                     </select>    
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>    
                             <div class="ln_solid"></div>
@@ -53,110 +46,56 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" ><?= get_phrase('religion');?></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="religion" class="form-control col-md-7 col-xs-12" type="text" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('email');?> <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="email" class="form-control col-md-7 col-xs-12" type="text" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" ><?= get_phrase('phone');?></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="phone" class="form-control col-md-7 col-xs-12" type="text" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" ><?= get_phrase('address');?></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="address" class="form-control col-md-7 col-xs-12" type="text" />
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('state');?></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="state" class="form-control col-md-7 col-xs-12 " type="text" />
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('country');?> </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="country" class="form-control col-md-7 col-xs-12">
-                                        <option value="">select country</option>
-                                        <option value="india">india</option>
-                                        <option value="USA">USA</option>
-                                    </select>    
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('class');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="class" class="form-control col-md-7 col-xs-12">
-                                        <option value="">Select Class</option>
-                                        <option value="One">One</option>
-                                        <option value="Two">Two</option>
-                                        <option value="three">Three</option>
-                                        <option value="Four">Four</option>
-                                        <option value="Five">Five</option>
+                                    <select name="class" class="form-control col-md-7 col-xs-12" onchange="get_section_by_class(this.value,'','')">
+                                        <option value=""><?= get_phrase('choose_class');?></option>
+                                        <?php foreach($classList as $class){?>
+                                        <option value="<?= $class->id;?>"><?= $class->class;?></option>
+                                        <?php } ?>
                                     </select>    
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('section');?> <span class="required">*</span> </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="section" class="form-control col-md-7 col-xs-12">
-                                        <option value="">Select section</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
+                                    <select name="section" class="form-control col-md-7 col-xs-12" id="section_id">
+                                        <option value=""><?= get_phrase('choose_section');?></option>
                                     </select>    
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?= get_phrase('group');?> </label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="group" class="form-control col-md-7 col-xs-12">
-                                        <option value="science">science</option>
-                                        <option value="arts">arts</option>
-                                        <option value="commerce">commerce</option>
-                                    </select>    
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('register no');?> <span class="required">*</span></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="register_no" class="form-control col-md-7 col-xs-12" type="text" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('roll');?> <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="roll" class="form-control col-md-7 col-xs-12" type="text" />
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('extra curricular activities');?></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="curricular" class="form-control col-md-7 col-xs-12 " type="text" />
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('remarks');?></label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input name="remarks" class="form-control col-md-7 col-xs-12 " type="text" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -169,7 +108,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"><?= get_phrase('password');?> <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input name="password" class="form-control col-md-7 col-xs-12" type="password" />
-                                    <div class="help-block"></div>
+                                    
                                 </div>
                             </div>
                             <div class="form-group">
@@ -223,4 +162,22 @@
             }
         });
     })
+
+    function get_section_by_class(class_id){
+        get_section(class_id);
+    }
+
+    function get_section(class_id){
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo base_url('ajax/get_section_by_class'); ?>",
+            data   : {class_id : class_id},  
+            success: function(response){                                                   
+                if(response)
+                {
+                    $('#section_id').html(response);
+                }
+            }
+        });
+    }
 </script>
